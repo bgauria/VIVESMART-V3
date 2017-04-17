@@ -1,0 +1,136 @@
+page-usuariosubpreferencia {
+	font-family: font129281;
+	.text-input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+	  color: white;
+	}
+	.text-input::-moz-placeholder { /* Firefox 19+ */
+	  color: white;
+	}
+	.text-input:-ms-input-placeholder { /* IE 10+ */
+	  color: white;
+	}
+	.text-input:-moz-placeholder { /* Firefox 18- */
+	  color: white;
+	}
+
+	.contenido{
+		.scroll-content{
+			padding: 16px 0 !important ;
+		}
+
+		h2{
+			font-size:20px ;
+			padding: 15px 0;
+		}
+	}
+
+
+	.header{
+		h1{
+			color:white;
+		}
+		.toolbar-background-md{
+			background: none;
+		}
+	}
+	.item{
+	    color: #056292;
+	    border-bottom: 2px solid #017dc7;
+	}
+	.item-divider{
+		background-color: rgba(244, 244, 244, 0.8);
+	    font-size: 30px;
+	    padding: 10px 0 10px 40px;
+
+	}
+	.item-block{
+		color: #017dc7;
+		background-color: rgba(244, 244, 244, 0.4);
+		font-size: 27px;
+		.checkbox-icon, .checkbox-checked{
+			border: 0;
+			border-radius: 50%;
+			width: 40px;
+			height: 40px;
+		}
+		.checkbox-icon {
+			background: #c7e8f9;			
+		}
+		.checkbox-checked{
+			background: #0080c8;
+			border: 10px solid #c7e8f9;
+			.checkbox-inner{
+				border-color: transparent;
+				
+			}
+		}
+	}
+
+	.lista{
+		.item-md{
+			background: rgba(255,255,255,0.7);
+		}
+		.item{
+
+			.label{
+				color: #0066c3;
+			}
+		}
+		.select-icon-inner{
+			color: #0066c3;
+		}
+
+	}
+
+	.button-bar{ 
+		margin-top: 25px;
+
+		.btn-back{
+			color: white;
+			width: 32%;
+
+		}
+		.btn-next{
+			width: 65%;
+			display: inline-block;
+			float: right;
+		}
+
+		.btn{font-size: 23px}
+
+	}
+
+/*
+
+ ion-list {
+    ion-item {
+      background-color: transparent;
+      padding-left: 0;
+      position: relative;
+    }
+    ion-label {
+      div {
+        text-transform: none;
+        font-size: 0.8em;
+        padding: 1em 0;
+        white-space: normal;
+        text-align: justify;
+      }
+    }
+    ion-icon  {
+      font-size: 1.8rem;
+      padding: 0;
+      text-align: center;
+      position: absolute;
+      right: 10px;
+      top: 3px;
+      &:before {
+        font-weight: bold;
+      }
+    }
+  }
+
+
+*/
+
+}

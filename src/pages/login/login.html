@@ -1,0 +1,78 @@
+<!--
+  Benito Auria
+  <ion-header>
+
+  <ion-navbar color="color_blue_grey">
+    <ion-title>Iniciar Sesión</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+
+
+<ion-content padding class="login-con">
+    <p align="center">
+        <img src="assets/img/logo.png" height="200px" width="200px"/>
+    </p>
+    <ion-item color="color_indigo_100">
+      <ion-icon name="person" item-left></ion-icon>
+      <ion-label floating color="primary">Usuario</ion-label>
+      <ion-input type="text" color="primary" [(ngModel)]="user"></ion-input>
+    </ion-item>
+
+    <ion-item color="color_indigo_100">
+      <ion-icon name="lock" item-left></ion-icon>
+      <ion-label floating color="primary">Clave</ion-label>
+      <ion-input type="password" color="primary"[(ngModel)]="pass"></ion-input>
+    </ion-item>
+
+     <div padding>
+        <button ion-button icon-left block (click)="login();" color="color_indigo_500">
+          <ion-icon name="send"></ion-icon>
+          Iniciar Sesión
+        </button>
+         <button ion-button clear block (click)="goToRegistro();" color="color_indigo_500">
+          Registrarse
+        </button>
+     
+      </div>
+
+</ion-content>
+-->
+<ion-content padding="true" style="background: url(assets/imgs/MzC4faYeQr2AnaRD3qbY_fondo.jpg) no-repeat center;background-size:cover;" class="manual-ios-statusbar-padding">
+    <div>
+
+      <img src="assets/imgs/xZ4nQvLCQNmPzZjkaO0O_logo-splash.png" style="display: block; width: 100%; height: auto; margin-left: auto; margin-right: auto;">
+    </div>
+    <!--<form id="login-form2" class="list">-->
+
+      <div class="spacer" style="width: 300px; height: 20px;">
+      </div>
+
+      <div class="my-input">
+        <ion-icon color="vibrant" name="contact" role="img" class="icon icon-ios icon-ios-vibrant ion-ios-contact" aria-label="contact" ng-reflect-color="vibrant" ></ion-icon> 
+        <ion-item class="user input" style="padding-left: 0;">
+          <ion-input placeholder="Usuario" type="text"  [(ngModel)]="user"></ion-input>
+        </ion-item>         
+      </div>
+
+      <div class="my-input">
+      <ion-icon ios="ios-lock" md="md-lock"></ion-icon>
+        <ion-item class="user input" style="padding-left: 0;">
+          <ion-input type="password" placeholder="Contraseña" [(ngModel)]="pass"></ion-input>
+        </ion-item>        
+      </div>
+      
+
+      <button id="btn-login" class="btn btn-login" (click)="login();">Ingresar</button>
+
+
+
+
+      <div id="login-button-bar1" class="button-bar">
+        <button id="login-button8" class="btn btn-group" (click)="goToRegistro();">Nuevo<br>usuario</button>
+        <button id="login-button9" class="btn btn-group btn-omega" (click)="showRecordarPass();">¿Olvidaste tu contraseña?</button>
+      </div>
+    <!--</form>-->
+</ion-content>

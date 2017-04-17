@@ -1,0 +1,39 @@
+page-registro {
+	font-family: font129281;
+	.text-input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+	  color: white;
+	}
+	.text-input::-moz-placeholder { /* Firefox 19+ */
+	  color: white;
+	}
+	.text-input:-ms-input-placeholder { /* IE 10+ */
+	  color: white;
+	}
+	.text-input:-moz-placeholder { /* Firefox 18- */
+	  color: white;
+	}
+
+	.list-md .item-block .item-inner, .list-md .item-input:last-child{
+			border-bottom:0 !important;
+		}
+	h1{
+		font-size: 45px;
+		font-weight: 400 ;
+	}
+	.my-input{
+		margin-bottom: 20px;
+	}
+	.btn-back{
+		color: white;
+		width: 32%;
+
+	}
+	.btn-next{
+		width: 65%;
+		display: inline-block;
+		float: right;
+	}
+
+	.btn{font-size: 23px}
+
+}
