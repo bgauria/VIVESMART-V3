@@ -12,6 +12,10 @@ page-usuariosubpreferencia {
 	.text-input:-moz-placeholder { /* Firefox 18- */
 	  color: white;
 	}
+	.label-md {
+   		margin: 10px;
+    	font-size: 17px;
+	}
 
 	.contenido{
 		.scroll-content{
@@ -24,15 +28,22 @@ page-usuariosubpreferencia {
 		}
 	}
 
-
 	.header{
+		
+		.toolbar-title, .toolbar-title-md{
+			background: url(../../assets/imgs/foco.png) center left no-repeat;	
+			background-size: 15%;		
+		}
+
 		h1{
 			color:white;
+			padding-left: 40px;
 		}
 		.toolbar-background-md{
 			background: none;
 		}
 	}
+
 	.item{
 	    color: #056292;
 	    border-bottom: 2px solid #017dc7;
@@ -50,15 +61,15 @@ page-usuariosubpreferencia {
 		.checkbox-icon, .checkbox-checked{
 			border: 0;
 			border-radius: 50%;
-			width: 40px;
-			height: 40px;
+			width: 25px;
+			height: 25px;
 		}
 		.checkbox-icon {
 			background: #c7e8f9;			
 		}
 		.checkbox-checked{
 			background: #0080c8;
-			border: 10px solid #c7e8f9;
+			border: 5px solid #c7e8f9;
 			.checkbox-inner{
 				border-color: transparent;
 				
@@ -98,6 +109,10 @@ page-usuariosubpreferencia {
 
 		.btn{font-size: 23px}
 
+	}
+
+	.item.item-md .checkbox-md {
+		margin: 9px 15px 9px 4px;
 	}
 
 /*

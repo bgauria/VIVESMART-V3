@@ -8,7 +8,7 @@
 
   <ion-navbar>
     <ion-title>
-    	<h1>Mi Perfil</h1>
+    	<h1 class="profile">Mi Perfil</h1>
     </ion-title>
   </ion-navbar>
 
@@ -30,7 +30,7 @@
 	</ion-row>
 	<ion-row class="level">
 		<ion-col col-4>
-			load
+			<img src="assets/imgs/levels.png" alt="">
 		</ion-col>
 		<ion-col col>
 			<h1>{{_nivel}}</h1>
@@ -41,10 +41,10 @@
 	<ion-row class="data">
 		<ion-col>
 			<ul>
-				<li><h3>Cédula: {{_cedula}}</h3></li>
-				<li><h3>E-mail: {{_corro}}</h3></li>
-				<li><h3>Usuario: {{_user}}</h3></li>
-				<li><h3>Password: ********</h3></li>
+				<li><p>Cédula: {{_cedula}}</p></li>
+				<li><p>E-mail: {{_corro}}</p></li>
+				<li><p>Usuario: {{_user}}</p></li>
+				<li><p>Password: ********</p></li>
 			</ul>
 		</ion-col>
 	</ion-row>
@@ -55,5 +55,5 @@
 
 
 
-<button ion-button full color="danger" (click)="setCerrarSesion();">Cerrar Sesión</button>
+<button ion-button full class="btn" (click)="setCerrarSesion();">Cerrar Sesión</button>
 </ion-content>

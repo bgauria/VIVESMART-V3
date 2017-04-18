@@ -30,7 +30,7 @@ export class PerfilPage {
   private su;
   public _foto= '';
   public _full_name='';
-  public _nivel='Nivel 3';
+  public _nivel='Nivel 1';
   public _puntos ='405 Puntos';
   public _proximo_nivel='45 puntos para el próximo nivel.';
   public _cedula = '';
@@ -54,7 +54,7 @@ export class PerfilPage {
             this._cedula= this.su.usu_cedula;
             this._corro= this.su.usu_correo;
             this._user= this.su.usu_user;
-            this._puntos= this.su.usu_puntos_acumulados + 'Puntos';
+            this._puntos= this.su.usu_puntos_acumulados + ' Puntos';
 
             
         });

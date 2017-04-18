@@ -9,7 +9,7 @@ loading: Loading;
 
    showLoading() {
     this.loading = this.loadingCtrl.create({
-      content: 'Please wait...'
+      content: 'Espere por favor..'
     });
     this.loading.present();
    }

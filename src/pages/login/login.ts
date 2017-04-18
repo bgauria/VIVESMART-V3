@@ -89,8 +89,8 @@ export class LoginPage {
 
       showRecordarPass() {  
         let confirm = this.alertCtrl.create({
-            title: 'Go',
-            message: 'Escribe tu mail para recuperar tu user y contraseña',
+            title: 'Recuperar contraseña',
+            message: 'Escribe tu mail para recuperar tu usuario y contraseña',
             inputs: [
                 {
                 name: 'title',

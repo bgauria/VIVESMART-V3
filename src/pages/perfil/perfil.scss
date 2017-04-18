@@ -29,8 +29,15 @@ page-perfil {
 
 
 	.header{
+		
+		.toolbar-title, .toolbar-title-md{
+			background: url(../../assets/imgs/profil_icon.png) center left no-repeat;	
+			background-size: 15%;		
+		}
+
 		h1{
 			color:white;
+			padding-left: 40px;
 		}
 		.toolbar-background-md{
 			background: none;
@@ -41,7 +48,7 @@ page-perfil {
 		.avatar{
 			border-radius: 20%;
 		    padding: 10px;
-		    background: rgba($blue, 0.7);
+		    background: url(../../assets/imgs/bg-insig.png) center center no-repeat;
 		    img{
 		    	border-radius:50%;
 		    	border: 5px solid rgba($blue, 0.7) ;
@@ -81,12 +88,12 @@ page-perfil {
 				    li{
 				    	background: rgba(255, 255, 255, 0.34);
 					    margin: 10px 0;
-					    padding: 15px;
+					    padding: 10px;
 					    border-radius: 5px;
-					    h3{
+					    p{
 					    	padding:0;
 					    	margin: 0;
-					    	font-size: 18px;
+					    	color: $blue;
 					    }
 				    }
 		  		}

@@ -1,3 +1,33 @@
 page-logros {
 
+	.header{
+		.toolbar-title, .toolbar-title-md{
+			background: url(../../assets/imgs/star.png) center left no-repeat;	
+			background-size: 15%;		
+		}
+
+		h1{
+			color:white;
+			padding-left: 40px;
+		}
+		.toolbar-background-md{
+			background: none;
+		}
+	}
+		
+	.grid{
+		.fondo{
+			background: url(../../assets/imgs/bg-insig.png) center center no-repeat;
+			background-size: 100%;
+		}
+		h4{
+			font-size: 1.3rem;
+			margin-top: 0;
+			text-align: center;
+			color: #053c92;
+			font-weight: bolder;
+
+		}
+	}
+
 }
