@@ -31,7 +31,7 @@ page-perfil {
 	.header{
 		
 		.toolbar-title, .toolbar-title-md{
-			background: url(../../assets/imgs/profil_icon.png) center left no-repeat;	
+			background: url(../assets/imgs/profil_icon.png) center left no-repeat;	
 			background-size: 15%;		
 		}
 
@@ -48,7 +48,7 @@ page-perfil {
 		.avatar{
 			border-radius: 20%;
 		    padding: 10px;
-		    background: url(../../assets/imgs/bg-insig.png) center center no-repeat;
+		    background: url(../assets/imgs/bg-insig.png) center center no-repeat;
 		    img{
 		    	border-radius:50%;
 		    	border: 5px solid rgba($blue, 0.7) ;
