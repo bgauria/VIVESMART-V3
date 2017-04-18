@@ -33,7 +33,7 @@
         </ion-grid>
         <ion-grid class="sinopsis">
           <ion-row > 
-            <ion-col (click)="setDespliegue(np);">
+            <ion-col (click)="goToVerMas(np);">
               <ion-card-title>
                 <h2>{{np.not_titulo}}</h2>
               </ion-card-title>
@@ -46,14 +46,14 @@
             </ion-col>
           </ion-row>
         </ion-grid>
-        <div *ngIf="np.despliegue == 'true'">
+       <!-- <div *ngIf="np.despliegue == 'true'">
           <p>
                {{np.not_sinopsis}}
           </p>
             <button *ngIf="np.not_qr != null" ion-button full color="danger" (click)="setScanear(np);" >!Scanear el código Smart!</button>
             <button *ngIf="np.not_qr != null" ion-button full color="danger" (click)="openMenu();">Compartir</button>
             <button *ngIf="np.not_qr != null" ion-button full color="danger" (click)="setDespliegue(np);">atras</button>
-        </div>
+        </div>-->
       </ion-card-content>
     </ion-card>
   </div>

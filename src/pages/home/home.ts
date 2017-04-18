@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams ,Platform, ActionSheetController} from 'ionic-angular';
+import { NavController, NavParams ,Platform} from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
 import {Entity} from '../../providers/entity';
@@ -8,8 +8,10 @@ import {Alerta} from '../../providers/alerta';
 import {Load} from '../../providers/load';
 import {Toast} from '../../providers/toast';
 import {Fecha} from '../../providers/fecha';
-import { BarcodeScanner } from '@ionic-native/barcode-scanner';
-import { SocialSharing } from '@ionic-native/social-sharing';
+//import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+//import { SocialSharing } from '@ionic-native/social-sharing';
+
+import { Detallenoticiapromocion } from  '../detallenoticiapromocion/detallenoticiapromocion';
 //declare var navigator: any;
 //declare var Connection: any;
 /*
@@ -21,7 +23,7 @@ import { SocialSharing } from '@ionic-native/social-sharing';
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html',
-  providers: [Entity, Url, Alerta, Load,Fecha, Toast, BarcodeScanner, SocialSharing]
+  providers: [Entity, Url, Alerta, Load,Fecha, Toast]
 })
 export class HomePage {
  
@@ -33,8 +35,8 @@ export class HomePage {
   private _key_enrutador= '';
   //http://stackoverflow.com/questions/40354553/ionic-2-update-rootparams-tabs
 
-   constructor( public navCtrl: NavController, public navParams: NavParams, private platform: Platform, private oUrl: Url, public actionsheetCtrl: ActionSheetController
-               ,private socialSharing: SocialSharing ,private barcodeScanner: BarcodeScanner ,public storage: Storage, public oEntity: Entity,private oAlerta: Alerta, private oLoad: Load, private oF: Fecha , public oT: Toast) {
+   constructor( public navCtrl: NavController, public navParams: NavParams, private platform: Platform, private oUrl: Url
+               ,public storage: Storage, public oEntity: Entity,private oAlerta: Alerta, private oLoad: Load, private oF: Fecha , public oT: Toast) {
                   this.ifReintentar= true;
                   console.log('---> ' + navParams.data);
                   this._key_enrutador= navParams.data;
@@ -177,7 +179,7 @@ export class HomePage {
                      
     }
 
-    setDespliegue(np){
+   /* setDespliegue(np){
         if(np.despliegue == 'false'){
             np.despliegue = 'true';
         }else{
@@ -254,6 +256,9 @@ export class HomePage {
  
         }
 
+  }*/
+  goToVerMas(_np){
+      this.navCtrl.push(Detallenoticiapromocion,  {data: _np});
   }
 
 }
