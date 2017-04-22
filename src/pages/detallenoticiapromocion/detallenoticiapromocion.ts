@@ -98,14 +98,7 @@ export class Detallenoticiapromocion {
            np.despliegue = 'false';
         }
     }*/
-    setScanear(){
     
-        this.barcodeScanner.scan().then((barcodeData) => {
-            alert( JSON.stringify(barcodeData));
-        }, (err) => {
-            this.oT.showLongToast('Error');
-        });
-    }
 
 
 
@@ -152,7 +145,7 @@ export class Detallenoticiapromocion {
         actionSheet.present();
         
   }*/
-  compartir(){
+  _compartir(){
      this.socialSharing.share(
        'Prueba',
         'x_x',
@@ -165,5 +158,70 @@ export class Detallenoticiapromocion {
       });
 
   }
+  _setScanear(){
+    
+        this.barcodeScanner.scan().then((barcodeData) => {
+            alert( JSON.stringify(barcodeData));
+        }, (err) => {
+            this.oT.showLongToast('Error');
+        });
+    }
+  compartir(){
+     this.createMisiones(2);
+
+  }
+  setScanear(){
+    this.createMisiones(1);
+       
+  }
+
+  createMisiones(op){
+       
+                /*if(navigator.connection.type == Connection.NONE) {
+                    this.oAlerta.showSinInternet();
+                    this.ifReintentar= true;  
+                }else{*/
+                    let _key='';
+                    if(op == '1'){
+                        _key= 'KEY_NOTICIAS_QR';
+
+                    }else{
+                        _key= 'KEY_NOTICIAS_COMPARTIR';
+                    }
+                    this.storage.ready().then(() => {
+                    this.storage.get('vs_user').then((val) => {   
+                        this.su = JSON.parse(val);
+                        this.oLoad.showLoading();
+                        var data = JSON.stringify({
+                                                KEY: _key,
+                                                _id_not: this.np.not_id,
+                                                _id_usu: this.su.usu_id
+                                            });
+                        if(this.su.usu_id != ''){
+                            this.oEntity.get(data, this.oUrl.url_noticias_promociones, 0).finally(() => { 
+                                this.oLoad.dismissLoading(); 
+                            }).subscribe(data => {
+                                console.log('--> ' + JSON.stringify(data));
+                                if(data.success == 1){
+                                    this.oT.showLongToast(data.msg);
+                                    this.storage.set('vs_user_puntos_acumulados', data.mision_compartir_escanear[0]._ACUM);
+                                    
+                                } else {
+                                    this.oAlerta.show1(data.msg);
+                                } 
+                            }, error => {
+                                //this.oAlerta.showVolverIntentar();
+                                this.oAlerta.show1(error);
+                            });
+                        }else{
+                            this.oAlerta.show1('Error, faltan ID');
+                        }
+                            
+                    });                   
+                }); 
+            
+        //}
+                     
+    }
 
 }

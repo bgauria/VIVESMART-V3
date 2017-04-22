@@ -54,7 +54,7 @@ export class PerfilPage {
             this._cedula= this.su.usu_cedula;
             this._corro= this.su.usu_correo;
             this._user= this.su.usu_user;
-            this._puntos= this.su.usu_puntos_acumulados + ' Puntos';
+            //this._puntos= this.su.usu_puntos_acumulados + ' Puntos';
 
             
         });
@@ -64,6 +64,15 @@ export class PerfilPage {
             this.imagen_vacia_1 = false;
             this.imagen_1 = val;
             console.log('--->--->' + val);
+          }
+           
+        });
+         this.storage.get('vs_user_puntos_acumulados').then((val) => {
+          //if(val != ''){
+          if(typeof val !== 'undefined' && val !== null){
+            this._puntos= val + ' Puntos';
+          }else{
+            this._puntos= '0 Puntos';
           }
            
         });
@@ -187,6 +196,7 @@ guardarFoto(_foto){
     this.storage.ready().then(() => {
       
         this.storage.remove('vs_user');
+        this.storage.remove('vs_user_puntos_acumulados');
         this.storage.remove('vs_foto');
         this.storage.remove('ListrutasPage_rutas');
         this.storage.remove('ListmisvehiculosPage_vehiculos');

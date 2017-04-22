@@ -66,6 +66,7 @@ export class LoginPage {
                                                                                 usu_puntos_acumulados: data.usuario[0].usu_puntos_acumulados,
                                                                             }
                                                                         ));
+                            this.storage.set('vs_user_puntos_acumulados', data.usuario[0].usu_puntos_acumulados);
                         });     
 
                         this.navCtrl.setRoot(UsuariosubpreferenciaPage);
