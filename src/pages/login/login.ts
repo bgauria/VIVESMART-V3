@@ -64,9 +64,13 @@ export class LoginPage {
                                                                                 //usu_push: data.usuario[0].usu_adicional_1,
                                                                                 usu_user: data.usuario[0].usu_user,
                                                                                 usu_puntos_acumulados: data.usuario[0].usu_puntos_acumulados,
+                                                                                usu_tiene_subpreferencias: data.usuario[0].tiene_subpreferencias
+                                                                                
                                                                             }
                                                                         ));
+                                                                        
                             this.storage.set('vs_user_puntos_acumulados', data.usuario[0].usu_puntos_acumulados);
+                            //this.storage.set('vs_tiene_preferencias', data.usuario[0].tiene_subpreferencias);
                         });     
 
                         this.navCtrl.setRoot(UsuariosubpreferenciaPage);

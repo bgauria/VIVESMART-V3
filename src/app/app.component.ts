@@ -5,7 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { LoginPage } from '../pages/login/login';
 import { TabPage } from '../pages/tab/tab';
-//import { UsuariosubpreferenciaPage } from '../pages/usuariosubpreferencia/usuariosubpreferencia';
+import { UsuariosubpreferenciaPage } from '../pages/usuariosubpreferencia/usuariosubpreferencia';
 
 
 import { Storage } from '@ionic/storage';
@@ -28,8 +28,17 @@ export class MyApp {
           if(typeof val === 'undefined' || val === null){
             this.rootPage =LoginPage;
           }else{
-            this.rootPage = TabPage;
-            //this.rootPage = UsuariosubpreferenciaPage;
+            storage.get('vs_tiene_preferencias').then((val) => {
+              if(typeof val === 'undefined' || val === null || val =='0'){
+                console.log('---->----> '+ val);
+                this.rootPage = UsuariosubpreferenciaPage;
+              }else{
+                this.rootPage = TabPage;
+              }
+
+            
+            });
+            
             
           }
       });

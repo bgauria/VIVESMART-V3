@@ -17,8 +17,29 @@
 
 
 <ion-content padding="false" style="background: url(assets/imgs/MzC4faYeQr2AnaRD3qbY_fondo.jpg) no-repeat center;background-size:cover;" class="manual-ios-statusbar-padding" class="contenido">
+	  <div *ngIf="ifReintentar" padding>
+         <ion-fab center middle>
+            <button ion-fab color="color_indigo_500" (click)="getRecargar();"><ion-icon name="refresh"></ion-icon></button>
+         </ion-fab>
+   </div>
+	
 
-	<ion-grid>
+		<ion-grid>
+	  <ion-row *ngFor="let logro of _lista_logros">
+	    <ion-col col-4 *ngFor="let fila of logro.valores">
+				<div class="fondo">
+					<img  [src]="fila.ins_img" *ngIf="fila.bandera == 'true'">
+					<img src="assets/imgs/block.png" alt="" *ngIf="fila.bandera == 'false'">
+				</div>
+				<h4>{{fila.ins_descripcion}}</h4>
+	    </ion-col>
+	  
+	  </ion-row>
+
+	</ion-grid>
+		<!--	
+		
+		<ion-grid>
 	  <ion-row>
 	    <ion-col col-4>
 	    <div class="fondo">
@@ -82,7 +103,7 @@
 	    </ion-col>
 	  </ion-row>
 	  
-	</ion-grid>
+	</ion-grid>-->
 
 
 

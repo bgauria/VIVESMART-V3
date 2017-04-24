@@ -31,7 +31,7 @@ export class HomePage {
   public _lista_noticias_promocion;
   private su;
   public _color_like= 'light';
-
+  //private bandera= true;
   private _key_enrutador= '';
   //http://stackoverflow.com/questions/40354553/ionic-2-update-rootparams-tabs
 
@@ -44,34 +44,33 @@ export class HomePage {
   }
 
   ionViewWillEnter() {
-    this.getCargar();
-      /*if(typeof this._lista_usu_sub_preferencia === 'undefined' || this._lista_usu_sub_preferencia.length == 0){ 
-            this.storage.get('ListmisvehiculosPage_vehiculos').then((val) => {
+    
+      if(typeof this._lista_noticias_promocion === 'undefined' || this._lista_noticias_promocion.length == 0){ 
+            this.storage.get(this.getEtiquedaDataLocal()).then((val) => {
                 if(val === null){
-                    this.getCargar();
+                    this.getCargar('', '1', null);
                 }else{
                     this.su = JSON.parse(val);     
                     if(this.oF.getNumYearMasDia() != this.su.fecha){
-                        this.getCargar();
+                        this.getCargar('', '1', null);
                     }else{
                         this.ifReintentar= false;
-                        this._lista_usu_sub_preferencia= this.su.data;
+                        this._lista_noticias_promocion= this.su.data;
                     }
                 }
              });
         }else{
-            this.storage.get('ListmisvehiculosPage_vehiculos').then((val) => {
+            this.storage.get(this.getEtiquedaDataLocal()).then((val) => {
                 if(val === null){
-                  console.log('4');
-                    this.getCargar();
+                  this.getCargar('', '1', null);
                 }
              });
  
-        }*/
+        }
   }
 
 
-   getCargar(){
+   getCargar(id, sp, eve){
        try{ 
            /* if(navigator.connection.type == Connection.NONE) {
                 this.oAlerta.showSinInternet();
@@ -86,7 +85,9 @@ export class HomePage {
                       var data = JSON.stringify({
                                                   KEY: 'KEY_SELECT_NOTICIAS_PROMOCIONES',
                                                   _id_usuario:  this.su.usu_id,
-                                                  _bandera: this._key_enrutador
+                                                  _bandera: this._key_enrutador,
+                                                  _sp: sp,
+                                                  _inicio: id
                                                 });
 
                       this.oEntity.get(data, this.oUrl.url_noticias_promociones,0).finally(() => { 
@@ -94,21 +95,39 @@ export class HomePage {
                       }).subscribe(data => {
                           if(data.success == 1){
                               console.log('>>>>>>>>> ' + JSON.stringify(data));
-                              this._lista_noticias_promocion= data.not_promo;
-                              /*this.storage.remove('ListmisvehiculosPage_vehiculos'); 
-                              this.storage.set('ListmisvehiculosPage_vehiculos',JSON.stringify(
-                                                                                    {
-                                                                                        data: data.vehiculo,
-                                                                                        fecha: this.oF.getNumYearMasDia()
-                                                                                    }
-                                                                                ));*/
+                              if(sp == '1'){
+                                this._lista_noticias_promocion= data.not_promo;
+                              }   
+                              if(sp == '2'){
+                                for(let d of data.not_promo) {
+                                    this._lista_noticias_promocion.push(d);
+                                }       
+                              }
+                              if(sp == '3'){
+                                for(let d of data.not_promo) {
+                                    this._lista_noticias_promocion.unshift(d);
+                                }       
+                                 eve.complete();
+                              }
+
+                             this.setGuardarDataLocal();
                           } else {
                               this.oT.showToast(data.msg, 'middle');
-                              this.ifReintentar= true;
+                              if(sp == '1'){
+                                this.ifReintentar= true;
+                              }
+                              if(sp == '3'){
+                                eve.complete();
+                              }
                           } 
                       }, error => {
                           this.oAlerta.showVolverIntentar();
-                          this.ifReintentar= true;
+                          if(sp == '1'){
+                            this.ifReintentar= true;
+                          }
+                          if(sp == '3'){
+                            eve.complete();
+                          }
                   
                       });
                   });
@@ -116,11 +135,33 @@ export class HomePage {
             //}
       }catch(err) {
         this.oAlerta.showVolverIntentar();
+         if(sp == '3'){
+           eve.complete();
+         }
       } 
         
     }
+    setGuardarDataLocal(){
+        
+        this.storage.remove(this.getEtiquedaDataLocal()); 
+        this.storage.set(this.getEtiquedaDataLocal(),JSON.stringify(
+                                                {
+                                                    data: this._lista_noticias_promocion,
+                                                    fecha: this.oF.getNumYearMasDia()
+                                                }
+                                            ));
+    }
+    getEtiquedaDataLocal(){
+        let etiqueta='';
+        if(this._key_enrutador == '1'){
+            etiqueta='vs_HomePage_lista_noticias';
+        }else{
+            etiqueta='vs_HomePage_lista_promociones';
+        }
+        return etiqueta;
+    }
     getRecargar(){
-      this.getCargar();
+      this.getCargar('', '1', null);
     }
     addFavorito(np){
         if(np.bandera_like == 'light'){
@@ -161,6 +202,7 @@ export class HomePage {
                                         np.bandera_like = 'light';
                                         np.not_like =parseInt(np.not_like) - 1;
                                     }
+                                    this.setGuardarDataLocal();
                                 } else {
                                     this.oAlerta.show1(data.msg);
                                 } 
@@ -178,6 +220,28 @@ export class HomePage {
         //}
                      
     }
+
+
+  goToVerMas(_np){
+      this.navCtrl.push(Detallenoticiapromocion,  {data: _np});
+  }
+
+    doRefresh(refresher){
+        let b = this._lista_noticias_promocion[0];
+        this.getCargar(b.not_id, '3', refresher);
+       /* if (this.bandera){
+            this.bandera= false;
+        }else{
+            refresher.complete();
+        }*/
+    } 
+    setcargarMas(){
+        let b = this._lista_noticias_promocion[this._lista_noticias_promocion.length-1];//this._lista_noticias_promocion.pop();
+        this.getCargar(b.not_id, '2', null);
+        //this.getCargar('4', '2');
+    }
+
+}
 
    /* setDespliegue(np){
         if(np.despliegue == 'false'){
@@ -257,9 +321,3 @@ export class HomePage {
         }
 
   }*/
-  goToVerMas(_np){
-      this.navCtrl.push(Detallenoticiapromocion,  {data: _np});
-  }
-
-}
-

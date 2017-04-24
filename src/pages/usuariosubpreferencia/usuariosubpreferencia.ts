@@ -34,8 +34,6 @@ export class UsuariosubpreferenciaPage {
 
   private sp_seleccionados='';
   private sp_deseleccionados='';
-
-
   constructor( public navCtrl: NavController, public navParams: NavParams, private platform: Platform, private oUrl: Url, public alertCtrl: AlertController
                 ,public storage: Storage, public oEntity: Entity,private oAlerta: Alerta, private oLoad: Load, private oF: Fecha , public oT: Toast) {
                   this.ifReintentar= true;
@@ -151,33 +149,44 @@ export class UsuariosubpreferenciaPage {
                 this.oAlerta.showSinInternet();
                 this.ifReintentar= true;  
             }else{*/
-             //  if (this.sp_seleccionados != '' || this.sp_deseleccionados != ''){
-                this.storage.ready().then(() => {
-                    this.storage.get('vs_user').then((val) => {
-                      this.su = JSON.parse(val);
-                      this.oLoad.showLoading();
-                      var data = JSON.stringify({
-                                                  KEY: 'KEY_UPDATE_USUARIO_SUBPREFERENCIAS',
-                                                  _id_usuario:  this.su.usu_id,
-                                                  _lista_subpreferencias_seleccionadas: this.sp_seleccionados,
-                                                  _lista_subpreferencias_deseleccionadas:this.sp_deseleccionados
-                                                });
 
-                      this.oEntity.get(data, this.oUrl.url_subpreferencias,0).finally(() => { 
-                          this.oLoad.dismissLoading(); 
-                      }).subscribe(data => {
-                          if(data.success == 1){
-                              this.oT.showToast(data.msg, 'middle');
-                              this.navCtrl.setRoot(TabPage);
-                          } else {
-                              this.oT.showToast(data.msg, 'middle');
-                          } 
-                      }, error => {
-                          this.oAlerta.showVolverIntentar();                  
-                      });
-                  });
-                });
-              // }
+                     this.storage.ready().then(() => {
+                        this.storage.get('vs_user').then((val) => {
+                        this.su = JSON.parse(val);
+
+                        this.oLoad.showLoading();
+                        var data = JSON.stringify({
+                                                    KEY: 'KEY_UPDATE_USUARIO_SUBPREFERENCIAS',
+                                                    _id_usuario:  this.su.usu_id,
+                                                    _lista_subpreferencias_seleccionadas: this.sp_seleccionados,
+                                                    _lista_subpreferencias_deseleccionadas:this.sp_deseleccionados
+                                                    });
+
+                        this.oEntity.get(data, this.oUrl.url_subpreferencias,0).finally(() => { 
+                            this.oLoad.dismissLoading(); 
+                        }).subscribe(data => {
+                            console.log('>>>>>>>>> ' + JSON.stringify(data));
+                            if(data.success == 1){
+                                if(data.u_pref[0].tiene_preferencias != '0'){
+                                    this.storage.remove('vs_tiene_preferencias'); 
+                                    this.storage.set('vs_tiene_preferencias',data.u_pref[0].tiene_preferencias);
+                                     //console.log('---->---->----> '+ val);
+                                    this.oT.showToast(data.msg, 'middle');
+                                    this.navCtrl.setRoot(TabPage);
+                                }else{
+                                    this.oT.showLongToast('Debes seleccionar una Preferencia!');
+                                }
+
+                                
+                            } else {
+                                this.oT.showToast(data.msg, 'middle');
+                            } 
+                        }, error => {
+                            this.oAlerta.showVolverIntentar();                  
+                        });
+                    });
+                    });
+     
             //}
       }catch(err) {
         this.oAlerta.showVolverIntentar();

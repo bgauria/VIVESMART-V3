@@ -13,7 +13,16 @@
             <button ion-fab color="color_indigo_500" (click)="getRecargar();"><ion-icon name="refresh"></ion-icon></button>
          </ion-fab>
   </div>
+ <ion-refresher (ionRefresh)="doRefresh($event);">
+      <ion-refresher-content
+        pullingIcon="arrow-dropdown"
+        pullingText="Tire para Cargar"
+        refreshingSpinner="circles"
+        refreshingText="Cargando...">
+      </ion-refresher-content>
+    </ion-refresher>
   <div>
+     
     <ion-card *ngFor="let np of _lista_noticias_promocion">
       <!--<img src="img/nin-live.png"/>-->
       <ion-card-content>
@@ -56,6 +65,9 @@
         </div>-->
       </ion-card-content>
     </ion-card>
+  </div>
+  <div *ngIf="_lista_noticias_promocion != null" padding>
+    <button ion-button full color="danger" (click)="setcargarMas();" >Cargar Más</button>
   </div>
 </ion-content>
 
