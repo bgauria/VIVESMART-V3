@@ -1,4 +1,4 @@
-<ion-header class="header" style="background: url(assets/imgs/MzC4faYeQr2AnaRD3qbY_fondo.jpg) no-repeat center;background-size:cover;" >
+<ion-header class="header">
   <ion-navbar>
     <ion-title>
       <img class="logo" src="assets/imgs/logo.png">
@@ -67,7 +67,7 @@
     </ion-card>
   </div>
   <div *ngIf="_lista_noticias_promocion != null" padding>
-    <button ion-button full color="danger" (click)="setcargarMas();" >Cargar Más</button>
+    <button class="btn btn-login" (click)="setcargarMas();" >Cargar Más</button>
   </div>
 </ion-content>
 

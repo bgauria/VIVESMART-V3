@@ -21,15 +21,19 @@ page-home {
 			.card-content{
 				padding: 0;
 				.like{
-	    		color: #0269a8;
+	    		color: $blue;
 	    		padding-left: 0;
 	    		.icon{
-	    			background: #c8e3f0;
+	    			background: $blue-light;
 				    padding: 4px 6px;
 				    border-radius: 50%;
 				    font-size: 18px;
 				    line-height: 18px;
 				    margin: 0;
+	    		}
+	    		.icon-md-light{
+				    color: $blue;
+	    			
 	    		}
 	    	}
 			}
@@ -87,9 +91,10 @@ page-home {
 
 	.title{
 		text-align: center;
+		padding:0;
 		.logo{ 
-			max-width: 20%;
-    	margin: 20px auto 0;
+			max-width: 30%;
+    		margin: 15px auto 0;
 		}
 	}
 
