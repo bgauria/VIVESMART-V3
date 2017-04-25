@@ -46,10 +46,15 @@
                   <ion-icon ios="ios-heart-outline" md="md-heart-outline" color="{{np.bandera_like}}" (click)="addFavorito();"></ion-icon>
             </ion-col>
           </ion-row>
+          <ion-row>
+            <ion-col>
+              <p>
+                 {{np.not_sinopsis}}              
+              </p>
+            </ion-col>
+          </ion-row>
         </ion-grid>
-          <p>
-               {{np.not_sinopsis}}
-          </p>
+          
           <ion-grid>
             <ion-row>
               <ion-col col-3>
@@ -59,9 +64,14 @@
                 <button class="btn" *ngIf="np.not_qr != null" ion-button full (click)="setScanear();" >!Escanear el código Smart!</button>
               </ion-col>
             </ion-row>
+            <ion-row>
+              <ion-col>
+                <button class="btn"  ion-button full (click)="compartir();">Compartir</button>
+              </ion-col>
+            </ion-row>
+
           </ion-grid>
 
-            <button class="btn"  ion-button full (click)="compartir();">Compartir</button>
    
       </ion-card-content>
     </ion-card>

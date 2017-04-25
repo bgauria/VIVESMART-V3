@@ -45,8 +45,8 @@ page-usuariosubpreferencia {
 	}
 
 	.item{
-	    color: #056292;
-	    border-bottom: 2px solid #017dc7;
+	    color: $blue;
+	    border-bottom: 2px solid $blue;
 	}
 	.item-divider{
 		background-color: rgba(244, 244, 244, 0.8);
@@ -55,7 +55,7 @@ page-usuariosubpreferencia {
 
 	}
 	.item-block{
-		color: #017dc7;
+		color: $blue;
 		background-color: rgba(244, 244, 244, 0.4);
 		font-size: 27px;
 		.checkbox-icon, .checkbox-checked{
@@ -65,11 +65,11 @@ page-usuariosubpreferencia {
 			height: 25px;
 		}
 		.checkbox-icon {
-			background: #c7e8f9;			
+			background: $blue-light;			
 		}
 		.checkbox-checked{
-			background: #0080c8;
-			border: 5px solid #c7e8f9;
+			background: $blue;
+			border: 5px solid $blue-light;
 			.checkbox-inner{
 				border-color: transparent;
 				
@@ -84,11 +84,11 @@ page-usuariosubpreferencia {
 		.item{
 
 			.label{
-				color: #0066c3;
+				color: $blue;
 			}
 		}
 		.select-icon-inner{
-			color: #0066c3;
+			color: $blue;
 		}
 
 	}
@@ -106,9 +106,6 @@ page-usuariosubpreferencia {
 			display: inline-block;
 			float: right;
 		}
-
-		.btn{font-size: 23px}
-
 	}
 
 	.item.item-md .checkbox-md {
