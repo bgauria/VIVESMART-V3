@@ -204,8 +204,18 @@ export class Detallenoticiapromocion {
                                 console.log('--> ' + JSON.stringify(data));
                                 if(data.success == 1){
                                     this.oT.showLongToast(data.msg);
-                                    this.storage.set('vs_user_puntos_acumulados', data.mision_compartir_escanear[0]._ACUM);
-                                    
+                                    //this.storage.set('vs_user_puntos_acumulados', data.mision_compartir_escanear[0]._ACUM);
+                                    this.storage.set('vs_user_puntos_acumulados', JSON.stringify(
+                                                                            {
+                                                                                usu_nivel: data.mision_compartir_escanear[0].niv,
+                                                                                usu_puntos_proximo_nivel: data.mision_compartir_escanear[0].faltaParaProximoNivel,
+                                                                                usu_puntos_acumulados: data.mision_compartir_escanear[0]._ACUM
+                                                                                
+                                                                            }
+                                                                        ));
+
+
+
                                 } else {
                                     this.oAlerta.show1(data.msg);
                                 } 

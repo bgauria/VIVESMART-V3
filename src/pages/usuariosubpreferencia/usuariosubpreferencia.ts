@@ -31,17 +31,25 @@ export class UsuariosubpreferenciaPage {
   public _lista_usu_sub_preferencia;
   private su;
   public _togDisponiblidad;
+  private _key_enrutador;
+  public _ifValidacion_Boton= false;
 
   private sp_seleccionados='';
   private sp_deseleccionados='';
   constructor( public navCtrl: NavController, public navParams: NavParams, private platform: Platform, private oUrl: Url, public alertCtrl: AlertController
                 ,public storage: Storage, public oEntity: Entity,private oAlerta: Alerta, private oLoad: Load, private oF: Fecha , public oT: Toast) {
                   this.ifReintentar= true;
+                  this._key_enrutador= navParams.get('data');
+                  if(this._key_enrutador == '2'){
+                      this._ifValidacion_Boton= true;
+                  }
 
+             
                  
   }
 
   ionViewWillEnter() {
+     // console.log('#############' +this.navParams.data);
     this.getCargar();
       /*if(typeof this._lista_usu_sub_preferencia === 'undefined' || this._lista_usu_sub_preferencia.length == 0){ 
             this.storage.get('ListmisvehiculosPage_vehiculos').then((val) => {
@@ -192,4 +200,8 @@ export class UsuariosubpreferenciaPage {
         this.oAlerta.showVolverIntentar();
       }
     }
+    goBack() {
+       this.navCtrl.pop();
+    }
+
 }

@@ -9,7 +9,7 @@ import {Alerta} from '../../providers/alerta';
 import {Load} from '../../providers/load';
 import {Toast} from '../../providers/toast';
 import {Fecha} from '../../providers/fecha';
-
+import { UsuariosubpreferenciaPage } from '../usuariosubpreferencia/usuariosubpreferencia';
 //import { Camera } from 'ionic-native';
 import { Camera } from '@ionic-native/camera';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
@@ -69,10 +69,16 @@ export class PerfilPage {
         });
          this.storage.get('vs_user_puntos_acumulados').then((val) => {
           //if(val != ''){
-          if(typeof val !== 'undefined' && val !== null){
-            this._puntos= val + ' Puntos';
+          let d = JSON.parse(val);
+          if(typeof val !== 'undefined' && val !== null && typeof d.usu_puntos_acumulados !== 'undefined'){
+            this._puntos= d.usu_puntos_acumulados + ' Puntos';
+            this._nivel= d.usu_nivel ;
+            this._proximo_nivel= d.usu_puntos_proximo_nivel + ' puntos para el próximo nivel.';
+
           }else{
             this._puntos= '0 Puntos';
+            this._nivel='Nivel 1';
+            this._proximo_nivel='50 puntos para el próximo nivel.';
           }
            
         });
@@ -205,5 +211,11 @@ guardarFoto(_foto){
         this.navCtrl.parent.parent.setRoot(LoginPage);
     });
 
+  }
+  
+  goToPreferencias(){
+    //this.navCtrl.setRoot(UsuariosubpreferenciaPage, {data: '1'});
+    this.navCtrl.push(UsuariosubpreferenciaPage,  {data: '2'});
+    //this.navCtrl.push(Detallenoticiapromocion,  {data: _np});
   }
 }

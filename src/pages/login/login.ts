@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController , AlertController} from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 //import { HomePage } from '../home/home';
-
+import { TabPage } from  '../tab/tab';
 import { UsuariosubpreferenciaPage } from '../usuariosubpreferencia/usuariosubpreferencia';
 
 import {Alerta} from '../../providers/alerta';
@@ -69,11 +69,26 @@ export class LoginPage {
                                                                             }
                                                                         ));
                                                                         
-                            this.storage.set('vs_user_puntos_acumulados', data.usuario[0].usu_puntos_acumulados);
-                            //this.storage.set('vs_tiene_preferencias', data.usuario[0].tiene_subpreferencias);
-                        });     
+                            this.storage.set('vs_user_puntos_acumulados', JSON.stringify(
+                                                                            {
+                                                                                usu_nivel: data.usuario[0].usu_nivel,
+                                                                                usu_puntos_proximo_nivel: data.usuario[0].usu_puntos_proximo_nivel,
+                                                                                usu_puntos_acumulados: data.usuario[0].usu_puntos_acumulados
+                                                                                
+                                                                            }
+                                                                        ));
+                            this.storage.set('vs_tiene_preferencias', data.usuario[0].tiene_subpreferencias);
 
-                        this.navCtrl.setRoot(UsuariosubpreferenciaPage);
+        
+                            
+                        }); 
+                        if(data.usuario[0].tiene_subpreferencias == '0'){
+                            this.navCtrl.setRoot(UsuariosubpreferenciaPage, {data: '1'});
+                        }else{
+                            this.navCtrl.setRoot(TabPage);
+                        }    
+
+                        
                     } else {
                         this.oAlerta.show1("Usuario o Contraseña incorrectos!");
                     }   

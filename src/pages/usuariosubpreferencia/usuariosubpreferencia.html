@@ -40,15 +40,14 @@
   </ion-item-group>-->
 
   <div id="signup-button-bar2" class="button-bar">
-    <button id="signup-button15" class="btn btn-back my-input" (click)="goBack();">
+    <button id="signup-button15" class="btn btn-back my-input" (click)="goBack();" *ngIf="_ifValidacion_Boton">
     <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
     Atrás
     </button>
     <button id="signup-button16" class="btn btn-next btn-login" (click)="getGuardar();">
-      Siguiente
+      Guardar
       <ion-icon ios="ios-arrow-forward" md="md-arrow-forward"></ion-icon>
     </button>
   </div>
-
 
 </ion-content>
