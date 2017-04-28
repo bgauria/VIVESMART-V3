@@ -145,32 +145,34 @@ export class Detallenoticiapromocion {
         actionSheet.present();
         
   }*/
-  _compartir(){
+  compartir(){
      this.socialSharing.share(
-       'Prueba',
-        'x_x',
+       this.np.not_titulo,
+       this.np.not_descripcion,
         '',
         'https://www.google.com.ec'
         ).then(() => {
-        alert('OK');
+        //alert('OK');
+        this.createMisiones(2);
       }).catch(() => {
         // Error!
       });
 
   }
-  _setScanear(){
+  setScanear(){
     
         this.barcodeScanner.scan().then((barcodeData) => {
-            alert( JSON.stringify(barcodeData));
+            //alert( JSON.stringify(barcodeData));
+            this.createMisiones(1);
         }, (err) => {
             this.oT.showLongToast('Error');
         });
     }
-  compartir(){
+  _compartir(){
      this.createMisiones(2);
 
   }
-  setScanear(){
+  _setScanear(){
     this.createMisiones(1);
        
   }
