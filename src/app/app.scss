@@ -18,9 +18,14 @@
 $blue: #036aa9;
 $blue-light: #d0eaf8;
 
+@font-face{
+	font-family: "DIN";
+	src: url(../assets/fonts/DINNextSlabPro-Light.ttf);
+}
 
-html, body{
-	font-family: font129281;
+
+html, body, h1, h2, h3, h4, h5, h6, p, div, span{
+	font-family: "DIN";
 	color: $blue;
 }
 
@@ -30,7 +35,7 @@ h1{
 		//line-height: 30px;
 	}
 h2{
-	//font-size:25px ;
+	font-weight: 600; ;
 }
 .my-input{
 	background: rgba(255,255,255,0.2);

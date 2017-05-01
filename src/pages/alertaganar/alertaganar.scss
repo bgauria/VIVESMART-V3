@@ -1,3 +1,35 @@
 page-alertaganar {
+	ion-header.modal, ion-footer{
+		background-color: $blue-light;
+		background-image: none;
+		.toolbar-title{
+			color: $blue;
+			text-align: center;
+			font-weight: 300;
+			font-size: 2.5rem;			
+		}
+	}
+	ion-footer{
+		padding: 10px 0;
+	}
+	.toolbar-background{
+		background: none;
+	}
+	.txt{
+		width: 90%;
+		margin: 0 auto;
+		color: $blue;
+		font-size: 2rem;
+		font-weight: 100;
+		text-align: center;
 
+		h1{
+			font-size: 4.1rem;
+		}
+		img{
+			width: 80%;
+			margin: 5px auto;
+		}
+		p{margin-top: 10px;}
+	}
 }
