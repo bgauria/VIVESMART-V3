@@ -28,7 +28,7 @@
 	  <ion-row *ngFor="let logro of _lista_logros">
 	    <ion-col col-4 *ngFor="let fila of logro.valores">
 				<div class="fondo">
-					<img  [src]="fila.ins_img" *ngIf="fila.bandera == 'true'">
+					<img  [src]="fila.img" *ngIf="fila.bandera == 'true'">
 					<img src="assets/imgs/block.png" alt="" *ngIf="fila.bandera == 'false'">
 				</div>
 				<h4>{{fila.ins_descripcion}}</h4>

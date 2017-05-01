@@ -123,7 +123,7 @@ export class PerfilPage {
           title: 'Menú',
           cssClass: 'action-sheets-basic-page',
           buttons: [
-            {
+            /*{
               text: 'Ver',
               icon: !this.platform.is('ios') ? 'eye' : null,
               handler: () => {
@@ -133,7 +133,7 @@ export class PerfilPage {
                 
                 //this.validar_open_menu= false;
               }
-            },
+            },*/
             {
               text: 'Galería',
               icon: !this.platform.is('ios') ? 'images' : null,

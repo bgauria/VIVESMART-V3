@@ -33,7 +33,7 @@ export class LoginPage {
 
     public login(){
         try{ 
-       /* if(navigator.connection.type == Connection.NONE) {
+        /*if(navigator.connection.type == Connection.NONE) {
             this.oAlerta.showSinInternet();
         }else{ */
             if(this.user =='' || this.pass ==''){
