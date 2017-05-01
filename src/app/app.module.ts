@@ -12,7 +12,7 @@ import { PromosPage } from '../pages/promos/promos';
 import { TipsPage } from '../pages/tips/tips';
 
 import { Detallenoticiapromocion } from '../pages/detallenoticiapromocion/detallenoticiapromocion';
-
+import { Alertaganar } from '../pages/alertaganar/alertaganar';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { IonicStorageModule } from '@ionic/storage';
@@ -32,7 +32,8 @@ import { HttpModule } from "@angular/http";
     PerfilPage,
     PromosPage,
     TipsPage,
-    Detallenoticiapromocion
+    Detallenoticiapromocion,
+    Alertaganar
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -52,7 +53,8 @@ import { HttpModule } from "@angular/http";
     PerfilPage,
     PromosPage,
     TipsPage,
-    Detallenoticiapromocion
+    Detallenoticiapromocion,
+    Alertaganar
   ],
   providers: [
     StatusBar,

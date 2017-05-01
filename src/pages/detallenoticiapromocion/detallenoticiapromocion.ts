@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {IonicPage, NavController, NavParams ,Platform} from 'ionic-angular';//ActionSheetController
+import {IonicPage, NavController, NavParams ,Platform, ModalController} from 'ionic-angular';//ActionSheetController
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { SocialSharing } from '@ionic-native/social-sharing';
 
@@ -11,7 +11,7 @@ import {Alerta} from '../../providers/alerta';
 import {Load} from '../../providers/load';
 import {Toast} from '../../providers/toast';
 import {Fecha} from '../../providers/fecha';
-
+import { Alertaganar } from  '../alertaganar/alertaganar';
 @IonicPage()
 @Component({
   selector: 'page-detallenoticiapromocion',
@@ -22,7 +22,7 @@ export class Detallenoticiapromocion {
   private su;
   public np:any;
    
-    constructor( public navCtrl: NavController, public navParams: NavParams, private platform: Platform, private oUrl: Url//, public actionsheetCtrl: ActionSheetController
+    constructor(  public modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, private platform: Platform, private oUrl: Url//, public actionsheetCtrl: ActionSheetController
                ,private socialSharing: SocialSharing ,private barcodeScanner: BarcodeScanner ,public storage: Storage, public oEntity: Entity,private oAlerta: Alerta, private oLoad: Load, private oF: Fecha , public oT: Toast) {
     this.np= navParams.get('data');
   }
@@ -219,6 +219,7 @@ export class Detallenoticiapromocion {
                                 if(data.success == 1){
                                     this.oT.showLongToast(data.msg);
                                     //this.storage.set('vs_user_puntos_acumulados', data.mision_compartir_escanear[0]._ACUM);
+                                    this.storage.remove('vs_user_puntos_acumulados');
                                     this.storage.set('vs_user_puntos_acumulados', JSON.stringify(
                                                                             {
                                                                                 usu_nivel: data.mision_compartir_escanear[0].niv,
@@ -228,7 +229,12 @@ export class Detallenoticiapromocion {
                                                                             }
                                                                         ));
 
-
+                                    this.showModalPremio(
+                                        op,
+                                        data.mision_compartir_escanear[0].niv,
+                                        data.mision_compartir_escanear[0].faltaParaProximoNivel,
+                                        data.mision_compartir_escanear[0]._ACUM
+                                    );
 
                                 } else {
                                     this.oAlerta.show1(data.msg);
@@ -246,6 +252,21 @@ export class Detallenoticiapromocion {
             
         //}
                      
+    }
+
+    showModalPremio(tipo, nivel, puntosproximonivel, acum){
+        let modal = this.modalCtrl.create(Alertaganar, {
+            tipo: tipo,
+            nivel: nivel ,
+            puntosproximonivel: puntosproximonivel ,
+            puntosacum: acum 
+
+        });
+        /*modal.onDidDismiss(place => {
+            console.log('page > modal dismissed > data > ');
+                   
+        })*/
+        modal.present();    
     }
 
 }
