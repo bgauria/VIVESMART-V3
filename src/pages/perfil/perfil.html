@@ -30,7 +30,8 @@
 	</ion-row>
 	<ion-row class="level">
 		<ion-col col-4>
-			<img src="assets/imgs/levels.png" alt="">
+			<img src="assets/imgs/{{_puntos}}.png" alt="">
+			<p></p>
 		</ion-col>
 		<ion-col col>
 			<h1>{{_nivel}}</h1>
@@ -54,7 +55,7 @@
 
 
 <div padding>
-	<button class="btn btn-login" (click)="goToPreferencias();">Preferencias</button>
+	<button class="btn btn-login" (click)="goToPreferencias();">Agregar Preferencias</button>
 	<button class="btn btn-login" (click)="setCerrarSesion();">Cerrar Sesión</button>
 </div>
 </ion-content>
