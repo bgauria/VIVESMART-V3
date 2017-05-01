@@ -150,9 +150,10 @@ export class Detallenoticiapromocion {
        this.np.not_titulo,
        this.np.not_descripcion,
         '',
-        'https://www.google.com.ec'
-        ).then(() => {
-        //alert('OK');
+        this.np.img
+        ).then((data) => {
+
+        //alert(JSON.stringify(data));
         this.createMisiones(2);
       }).catch(() => {
         // Error!
