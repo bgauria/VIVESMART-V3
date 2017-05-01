@@ -17,12 +17,19 @@ export class Alertaganar {
   public nivel = '';
   public puntosproximonivel= '';
   public puntosacum='';
+  public msg='';
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController) {
     this.tipo = navParams.get('tipo'); // si es 1 gano insignia, caso contrario compartio
     this.nivel = navParams.get('nivel');
     this.puntosproximonivel = navParams.get('puntosproximonivel');
     this.puntosacum = navParams.get('puntosacum');
+    if(this.tipo == '1'){
+      this.msg= '¡Ganaste una Insignia!';
+
+    }else{
+      this.msg= '¡Ganaste Puntos!';
+    }
 
   }
 
