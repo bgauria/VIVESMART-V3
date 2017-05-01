@@ -4,12 +4,12 @@ import { Injectable } from '@angular/core';
 */
 @Injectable()
 export class Url {
-  public url_usuario= 'http://ruteintime.com/ws/www/ws_usuario';
-  public url_subpreferencias= 'http://ruteintime.com/ws/www/ws_subpreferencias';
-  public url_noticias_promociones= 'http://ruteintime.com/ws/www/ws_noticias_promociones';
-  public url_vehiculos_disponibles= 'http://169.53.13.129/ws_vehiculos_disponibles';
-  public url_logros= 'http://ruteintime.com/ws/www/ws_logros';
-  public url_foto= 'http://169.53.13.129/img/';
+  public ruta='http://ruteintime.com/ws_vivesmart_v/';
+  // public ruta='http://ruteintime.com/ws/www/';
+  public url_usuario= this.ruta + 'ws_usuario';
+  public url_subpreferencias= this.ruta + 'ws_subpreferencias';
+  public url_noticias_promociones= this.ruta + 'ws_noticias_promociones';
+  public url_logros= this.ruta + 'ws_logros';
   constructor() {
   }
 

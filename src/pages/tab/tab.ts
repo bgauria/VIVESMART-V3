@@ -17,8 +17,8 @@ import { TipsPage } from '../tips/tips';
   templateUrl: 'tab.html'
 })
 export class TabPage {
-  pHome='1';
-  pPromo= '0';
+  pHome='0';//todo
+  pPromo= '1';//solo promo con preferencias
   tab1 = HomePage;
   tab2 = PerfilPage;
   tab3 = LogrosPage;

@@ -160,10 +160,21 @@ export class Detallenoticiapromocion {
 
   }
   setScanear(){
-    
         this.barcodeScanner.scan().then((barcodeData) => {
-            //alert( JSON.stringify(barcodeData));
-            this.createMisiones(1);
+            //alert(JSON.stringify(barcodeData));
+            
+            //let qr = JSON.parse(barcodeData);
+            //alert('---> ' + qr);
+            //alert('---> ' + qr.text);
+            if(barcodeData.text == this.np.not_id){
+                this.createMisiones(1);
+            }else{
+                this.oAlerta.show1('El Código Escaneado no es válido para esta promoción!');
+            }
+            
+            
+            //alert(barcodeData);
+            
         }, (err) => {
             this.oT.showLongToast('Error');
         });
