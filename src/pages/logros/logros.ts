@@ -39,6 +39,13 @@ export class LogrosPage {
   ionViewWillEnter() {
       if(typeof this._lista_logros === 'undefined' || this._lista_logros.length == 0){ 
         this.getCargar();
+      }else{
+           this.storage.get('vs_LogrosPage_Recargar').then((val) => {
+                if(val == '1'){
+                    this.storage.remove('vs_LogrosPage_Recargar');
+                    this.getCargar();
+                }
+             });
       }
     
       /*if(typeof this._lista_logros === 'undefined' || this._lista_logros.length == 0){ 

@@ -207,7 +207,7 @@ guardarFoto(_foto){
         this.storage.remove('vs_HomePage_lista_noticias');
         this.storage.remove('vs_HomePage_lista_promociones');
         this.storage.remove('vs_tiene_preferencias');
-        
+        this.storage.remove('vs_LogrosPage_Recargar');
         this.navCtrl.parent.parent.setRoot(LoginPage);
     });
 

@@ -217,7 +217,7 @@ export class Detallenoticiapromocion {
                             }).subscribe(data => {
                                 console.log('--> ' + JSON.stringify(data));
                                 if(data.success == 1){
-                                    this.oT.showLongToast(data.msg);
+                                    //this.oT.showLongToast(data.msg);
                                     //this.storage.set('vs_user_puntos_acumulados', data.mision_compartir_escanear[0]._ACUM);
                                     this.storage.remove('vs_user_puntos_acumulados');
                                     this.storage.set('vs_user_puntos_acumulados', JSON.stringify(
@@ -235,6 +235,8 @@ export class Detallenoticiapromocion {
                                         data.mision_compartir_escanear[0].faltaParaProximoNivel,
                                         data.mision_compartir_escanear[0]._ACUM
                                     );
+                                    this.storage.remove('vs_LogrosPage_Recargar');
+                                    this.storage.set('vs_LogrosPage_Recargar', '1');
 
                                 } else {
                                     this.oAlerta.show1(data.msg);
