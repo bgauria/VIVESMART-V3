@@ -19,6 +19,7 @@ export class Toast {
   showToastWithCloseButton(msg: string) {
     const toast = this.toastCtrl.create({
       message: msg,
+      position: 'bottom',
       showCloseButton: true,
       closeButtonText: 'Ok'
     });
