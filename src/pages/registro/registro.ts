@@ -102,12 +102,12 @@ export class RegistroPage {
                     }).subscribe(data => {
                          if(data.success == 1){
                            
-                            this.oT.showLongToast(data.msg);
+                            this.oT.showToastWithCloseButton(data.msg);
                             this.goBack()
                         } else {
                             //this.oAlerta.show1("Usuario o Contraseña incorrectos!");
-                            //this.oAlerta.show1(data.msg);
-                            this.oT.showLongToast(data.msg);
+                            this.oAlerta.show1(data.msg);
+                            //this.oT.showLongToast(data.msg);
                         } 
                     }, error => {
                         this.oAlerta.showVolverIntentar();
