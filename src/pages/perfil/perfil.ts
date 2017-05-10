@@ -92,11 +92,11 @@ export class PerfilPage {
             sourceType     : this.camera.PictureSourceType.CAMERA,
             mediaType: this.camera.MediaType.PICTURE
         }).then((imageData) => {
-            if(this.imagen_1 == null || this.imagen_1 == ''){
+           // if(this.imagen_1 == null || this.imagen_1 == ''){
                   this.imagen_vacia_1 = false;
                   this.imagen_1 = 'data:image/jpeg;base64,'+imageData;   
                   this.guardarFoto(this.imagen_1);  
-            }
+            //}
         }, (err) => {
             console.log(err);
         });
@@ -107,11 +107,11 @@ export class PerfilPage {
             sourceType: this.camera.PictureSourceType.SAVEDPHOTOALBUM,
             destinationType: this.camera.DestinationType.DATA_URL
         }).then((imageData) => {
-            if(this.imagen_1 == null || this.imagen_1 == ''){
+           // if(this.imagen_1 == null || this.imagen_1 == ''){
                 this.imagen_vacia_1 = false;
                 this.imagen_1 = 'data:image/jpeg;base64,'+imageData;    
                 this.guardarFoto(this.imagen_1); 
-            }
+           // }
         }, (err) => {
           console.log(err);
         });
@@ -191,6 +191,7 @@ export class PerfilPage {
 
 guardarFoto(_foto){
    this.storage.ready().then(() => {
+        this.storage.remove('vs_foto');
         this.storage.set('vs_foto', _foto);
     });     
 
@@ -203,7 +204,7 @@ guardarFoto(_foto){
       
         this.storage.remove('vs_user');
         this.storage.remove('vs_user_puntos_acumulados');
-        this.storage.remove('vs_foto');
+        //this.storage.remove('vs_foto');
         this.storage.remove('vs_HomePage_lista_noticias');
         this.storage.remove('vs_HomePage_lista_promociones');
         this.storage.remove('vs_tiene_preferencias');
