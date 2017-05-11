@@ -205,6 +205,7 @@ guardarFoto(_foto){
         this.storage.remove('vs_user');
         this.storage.remove('vs_user_puntos_acumulados');
         //this.storage.remove('vs_foto');
+        this.storage.remove('vs_code_push');
         this.storage.remove('vs_HomePage_lista_noticias');
         this.storage.remove('vs_HomePage_lista_promociones');
         this.storage.remove('vs_tiene_preferencias');

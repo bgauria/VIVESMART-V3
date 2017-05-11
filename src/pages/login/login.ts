@@ -26,10 +26,25 @@ declare var Connection: any;
 export class LoginPage {
     public user= '';
     public pass= '';
+    public code= '';
     
     constructor(public navCtrl: NavController, public storage: Storage, public alertCtrl: AlertController,
                  private oAlerta: Alerta, private oLoad: Load, public oEntity: Entity, public oUrl: Url) {   
     }
+    
+  ionViewWillEnter() {
+    
+           /* this.storage.get('vs_code_push').then((code) => {
+                if(typeof code !== 'undefined' && code !== null){
+                  this.code= code;
+                  alert('--> '+code);
+                }else{
+                    alert('NO ');
+                }
+             });*/
+ 
+        
+  }
 
     public login(){
         try{ 
@@ -43,7 +58,8 @@ export class LoginPage {
                 var data = JSON.stringify({
                                             KEY: 'KEY_USUARIO_LOGIN',
                                             user: this.user,
-                                            pass:  this.pass
+                                            pass:  this.pass,
+                                            code: this.code
                                          });
 
                 this.oEntity.get(data, this.oUrl.url_usuario, 0).finally(() => { 
