@@ -33,17 +33,14 @@ export class LoginPage {
     }
     
   ionViewWillEnter() {
-    
-           /* this.storage.get('vs_code_push').then((code) => {
-                if(typeof code !== 'undefined' && code !== null){
-                  this.code= code;
-                  alert('--> '+code);
-                }else{
-                    alert('NO ');
-                }
-             });*/
- 
-        
+    this.storage.get('vs_code_push').then((code) => {
+        if(typeof code !== 'undefined' && code !== null){
+            this.code= code;
+            //alert('--> '+code);
+        }else{
+            //alert('NO ');
+        }
+    });      
   }
 
     public login(){

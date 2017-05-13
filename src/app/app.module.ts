@@ -20,6 +20,8 @@ import { IonicStorageModule } from '@ionic/storage';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from "@angular/http";
 
+import { Push } from '@ionic-native/push';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -59,6 +61,7 @@ import { HttpModule } from "@angular/http";
   providers: [
     StatusBar,
     SplashScreen,
+    Push,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
