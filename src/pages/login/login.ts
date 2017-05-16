@@ -1,18 +1,13 @@
 import { Component } from '@angular/core';
 import { NavController , AlertController} from 'ionic-angular';
 import { Storage } from '@ionic/storage';
-//import { HomePage } from '../home/home';
 import { TabPage } from  '../tab/tab';
 import { UsuariosubpreferenciaPage } from '../usuariosubpreferencia/usuariosubpreferencia';
-
 import {Alerta} from '../../providers/alerta';
 import {Load} from '../../providers/load';
 import {Entity} from '../../providers/entity';
 import {Url} from '../../providers/url';
-
-
 import { RegistroPage } from '../registro/registro';
-
 
 declare var navigator: any;
 declare var Connection: any;
@@ -36,9 +31,6 @@ export class LoginPage {
     this.storage.get('vs_code_push').then((code) => {
         if(typeof code !== 'undefined' && code !== null){
             this.code= code;
-            //alert('--> '+code);
-        }else{
-            //alert('NO ');
         }
     });      
   }
@@ -62,8 +54,7 @@ export class LoginPage {
                 this.oEntity.get(data, this.oUrl.url_usuario, 0).finally(() => { 
                     this.oLoad.dismissLoading(); 
                 }).subscribe(data => {
-                     console.log('--> ' + JSON.stringify(data));
-                     //console.log('::::>' + data.usuario[0].usu_id);
+                     //console.log('--> ' + JSON.stringify(data));
                     if(data.success == 1){
                         this.storage.ready().then(() => {
                            this.storage.set('vs_user', JSON.stringify(
@@ -74,7 +65,6 @@ export class LoginPage {
                                                                                 usu_apellido: data.usuario[0].usu_apellido,
                                                                                 usu_cedula: data.usuario[0].usu_cedula,
                                                                                 usu_correo: data.usuario[0].usu_mail,
-                                                                                //usu_push: data.usuario[0].usu_adicional_1,
                                                                                 usu_user: data.usuario[0].usu_user,
                                                                                 usu_puntos_acumulados: data.usuario[0].usu_puntos_acumulados,
                                                                                 usu_tiene_subpreferencias: data.usuario[0].tiene_subpreferencias
@@ -91,6 +81,7 @@ export class LoginPage {
                                                                             }
                                                                         ));
                             this.storage.set('vs_tiene_preferencias', data.usuario[0].tiene_subpreferencias);
+                            this.storage.set('vs_usuario', this.user);
 
         
                             
@@ -106,7 +97,6 @@ export class LoginPage {
                         this.oAlerta.show1("Usuario o Contraseña incorrectos!");
                     }   
                 }, error => {
-                    //this.oAlerta.show2('ERROR' ,error , 'OK');
                     this.oAlerta.showVolverIntentar();
 
                 });
@@ -164,8 +154,6 @@ export class LoginPage {
                 this.oEntity.get(data, this.oUrl.url_usuario, 0).finally(() => { 
                     this.oLoad.dismissLoading(); 
                 }).subscribe(data => {
-                     console.log('--> ' + JSON.stringify(data));
-                     //console.log('::::>' + data.usuario[0].usu_id);
                     if(data.success == 1){
                         this.oAlerta.show1(data.msg);
                     } else {
@@ -173,7 +161,6 @@ export class LoginPage {
                     }   
                 }, error => {
                     this.oAlerta.show2('ERROR' ,error , 'OK');
-
                 });
            // }
         }

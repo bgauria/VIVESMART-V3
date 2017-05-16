@@ -12,6 +12,9 @@ import { PromosPage } from '../pages/promos/promos';
 import { TipsPage } from '../pages/tips/tips';
 
 import { Detallenoticiapromocion } from '../pages/detallenoticiapromocion/detallenoticiapromocion';
+import { CredencialPage } from '../pages/credencial/credencial';
+
+
 import { Alertaganar } from '../pages/alertaganar/alertaganar';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -35,7 +38,8 @@ import { Push } from '@ionic-native/push';
     PromosPage,
     TipsPage,
     Detallenoticiapromocion,
-    Alertaganar
+    Alertaganar,
+    CredencialPage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -56,7 +60,8 @@ import { Push } from '@ionic-native/push';
     PromosPage,
     TipsPage,
     Detallenoticiapromocion,
-    Alertaganar
+    Alertaganar,
+    CredencialPage
   ],
   providers: [
     StatusBar,

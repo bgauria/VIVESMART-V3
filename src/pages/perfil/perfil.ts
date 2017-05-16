@@ -10,6 +10,7 @@ import {Load} from '../../providers/load';
 import {Toast} from '../../providers/toast';
 import {Fecha} from '../../providers/fecha';
 import { UsuariosubpreferenciaPage } from '../usuariosubpreferencia/usuariosubpreferencia';
+import { CredencialPage } from '../credencial/credencial';
 //import { Camera } from 'ionic-native';
 import { Camera } from '@ionic-native/camera';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
@@ -210,14 +211,16 @@ guardarFoto(_foto){
         this.storage.remove('vs_HomePage_lista_promociones');
         this.storage.remove('vs_tiene_preferencias');
         this.storage.remove('vs_LogrosPage_Recargar');
+        this.storage.remove('vs_usuario');       
         this.navCtrl.parent.parent.setRoot(LoginPage);
     });
 
   }
   
   goToPreferencias(){
-    //this.navCtrl.setRoot(UsuariosubpreferenciaPage, {data: '1'});
     this.navCtrl.push(UsuariosubpreferenciaPage,  {data: '2'});
-    //this.navCtrl.push(Detallenoticiapromocion,  {data: _np});
+  }
+  goToCambiarCredenciales(){
+    this.navCtrl.push(CredencialPage);
   }
 }

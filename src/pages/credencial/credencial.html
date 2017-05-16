@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-navbar color="color_indigo_500">
+    <button  ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Usuario y Contraseña</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-item>
+     <ion-icon name='person' item-left></ion-icon>
+    <ion-label floating color="primary">Usuario</ion-label>
+    <ion-input type="text" color="primary" [(ngModel)]="_txtUsuario"></ion-input>
+  </ion-item>
+  <ion-item>
+     <ion-icon name='lock' item-left></ion-icon>
+    <ion-label floating color="primary">Contraseña</ion-label>
+    <ion-input type="password" color="primary" [(ngModel)]="_txtClave"></ion-input>
+  </ion-item>
+  <ion-item>
+     <ion-icon name='lock' item-left></ion-icon>
+    <ion-label floating color="primary">Confirmar</ion-label>
+    <ion-input type="password" color="primary" [(ngModel)]="_txtConfirmar"></ion-input>
+  </ion-item>
+
+   <div padding>
+    <button ion-button full color="color_indigo_500" (click)="enviar();">Guardar Cambios</button>
+  </div>
+
+</ion-content>

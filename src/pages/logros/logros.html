@@ -26,7 +26,7 @@
 
 		<ion-grid>
 	  <ion-row *ngFor="let logro of _lista_logros">
-	    <ion-col col-4 *ngFor="let fila of logro.valores">
+	    <ion-col col-4 *ngFor="let fila of logro.valores" (click)="goToVerDetalleLogro(fila);">
 				<div class="fondo">
 					<img  [src]="fila.img" *ngIf="fila.bandera == 'true'">
 					<img src="assets/imgs/block.png" alt="" *ngIf="fila.bandera == 'false'">
