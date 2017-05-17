@@ -8,14 +8,12 @@ import {Load} from '../../providers/load';
 import {Entity} from '../../providers/entity';
 import {Url} from '../../providers/url';
 import { RegistroPage } from '../registro/registro';
-
-declare var navigator: any;
-declare var Connection: any;
+import {ConnectivityService} from '../../providers/connectivity-service';
 
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
-  providers: [ Alerta, Load, Entity, Url]
+  providers: [ Alerta, Load, Entity, Url, ConnectivityService]
 })
 
 export class LoginPage {
@@ -24,7 +22,7 @@ export class LoginPage {
     public code= '';
     
     constructor(public navCtrl: NavController, public storage: Storage, public alertCtrl: AlertController,
-                 private oAlerta: Alerta, private oLoad: Load, public oEntity: Entity, public oUrl: Url) {   
+                 private oAlerta: Alerta, private oLoad: Load, public oEntity: Entity, public oUrl: Url, private oCS: ConnectivityService) {   
     }
     
   ionViewWillEnter() {
@@ -36,10 +34,7 @@ export class LoginPage {
   }
 
     public login(){
-        try{ 
-        /*if(navigator.connection.type == Connection.NONE) {
-            this.oAlerta.showSinInternet();
-        }else{ */
+        if(this.oCS.isOnline()) {
             if(this.user =='' || this.pass ==''){
                 this.oAlerta.show1('Faltan campos por llenar!');	
             }else{
@@ -100,10 +95,9 @@ export class LoginPage {
                     this.oAlerta.showVolverIntentar();
 
                 });
-           // }
-        }
-        }catch(err) {
-            this.oAlerta.show1('ERROR' + err);
+        
+            }
+  
         } 
     }
      goToRegistro(){
@@ -138,10 +132,7 @@ export class LoginPage {
     }
 
      public recuperarPass(mail){
-        try{ 
-       /* if(navigator.connection.type == Connection.NONE) {
-            this.oAlerta.showSinInternet();
-        }else{ */
+        if(this.oCS.isOnline()) {
             if(mail ==''){
                 this.oAlerta.show1('Faltan el mail!');	
             }else{
@@ -162,10 +153,7 @@ export class LoginPage {
                 }, error => {
                     this.oAlerta.show2('ERROR' ,error , 'OK');
                 });
-           // }
+            } 
         }
-        }catch(err) {
-            this.oAlerta.show1('ERROR' + err);
-        } 
     }
 }

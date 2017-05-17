@@ -8,12 +8,9 @@ import {Alerta} from '../../providers/alerta';
 import {Load} from '../../providers/load';
 import {Toast} from '../../providers/toast';
 import {Fecha} from '../../providers/fecha';
-//import { BarcodeScanner } from '@ionic-native/barcode-scanner';
-//import { SocialSharing } from '@ionic-native/social-sharing';
 
 import { Detallenoticiapromocion } from  '../detallenoticiapromocion/detallenoticiapromocion';
-//declare var navigator: any;
-//declare var Connection: any;
+import {ConnectivityService} from '../../providers/connectivity-service';
 /*
   Benito Auria García
   0988877109
@@ -23,7 +20,7 @@ import { Detallenoticiapromocion } from  '../detallenoticiapromocion/detallenoti
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html',
-  providers: [Entity, Url, Alerta, Load,Fecha, Toast]
+  providers: [Entity, Url, Alerta, Load,Fecha, Toast, ConnectivityService]
 })
 export class HomePage {
  
@@ -31,14 +28,11 @@ export class HomePage {
   public _lista_noticias_promocion;
   private su;
   public _color_like= 'light';
-  //private bandera= true;
   private _key_enrutador= '';
-  //http://stackoverflow.com/questions/40354553/ionic-2-update-rootparams-tabs
 
-   constructor( public navCtrl: NavController, public navParams: NavParams, private platform: Platform, private oUrl: Url
+   constructor( public navCtrl: NavController, public navParams: NavParams, private platform: Platform, private oUrl: Url, private oCS: ConnectivityService
                ,public storage: Storage, public oEntity: Entity,private oAlerta: Alerta, private oLoad: Load, private oF: Fecha , public oT: Toast) {
                   this.ifReintentar= true;
-                  console.log('---> ' + navParams.data);
                   this._key_enrutador= navParams.data;
                  
   }
@@ -72,15 +66,11 @@ export class HomePage {
 
    getCargar(id, sp, eve){
        try{ 
-           /* if(navigator.connection.type == Connection.NONE) {
-                this.oAlerta.showSinInternet();
-                this.ifReintentar= true;  
-            }else{*/
+            if(this.oCS.isOnline()) {
                 this.ifReintentar= false;
                 this.storage.ready().then(() => {
                     this.storage.get('vs_user').then((val) => {
                       this.su = JSON.parse(val);
-                      console.log('>>>>>>>>> ' +  this.su.usu_id);
                       this.oLoad.showLoading();
                       var data = JSON.stringify({
                                                   KEY: 'KEY_SELECT_NOTICIAS_PROMOCIONES',
@@ -94,7 +84,6 @@ export class HomePage {
                           this.oLoad.dismissLoading(); 
                       }).subscribe(data => {
                           if(data.success == 1){
-                              console.log('>>>>>>>>> ' + JSON.stringify(data));
                               if(sp == '1'){
                                 this._lista_noticias_promocion= data.not_promo;
                               }   
@@ -132,7 +121,11 @@ export class HomePage {
                       });
                   });
                 });
-            //}
+            }else{
+                if(sp == '3'){
+                    eve.complete();
+                }
+            }
       }catch(err) {
         this.oAlerta.showVolverIntentar();
          if(sp == '3'){
@@ -165,20 +158,14 @@ export class HomePage {
     }
     addFavorito(np){
         if(np.bandera_like == 'light'){
-            //np.bandera_like = 'danger';
             this.createLike(1, np);
         }else{
-            //np.bandera_like = 'light';
             this.createLike(0, np);
         }
     }
 
      createLike( _key_like, np ){
-       
-                /*if(navigator.connection.type == Connection.NONE) {
-                    this.oAlerta.showSinInternet();
-                    this.ifReintentar= true;  
-                }else{*/
+        if(this.oCS.isOnline()) {
                     this.storage.ready().then(() => {
                     this.storage.get('vs_user').then((val) => {   
                         this.su = JSON.parse(val);
@@ -207,8 +194,7 @@ export class HomePage {
                                     this.oAlerta.show1(data.msg);
                                 } 
                             }, error => {
-                                //this.oAlerta.showVolverIntentar();
-                                this.oAlerta.show1(error);
+                                this.oAlerta.showVolverIntentar();
                             });
                         }else{
                             this.oAlerta.show1('Error, faltan ID');
@@ -217,7 +203,7 @@ export class HomePage {
                     });                   
                 }); 
             
-        //}
+        }
                      
     }
 
@@ -229,95 +215,10 @@ export class HomePage {
     doRefresh(refresher){
         let b = this._lista_noticias_promocion[0];
         this.getCargar(b.not_id, '3', refresher);
-       /* if (this.bandera){
-            this.bandera= false;
-        }else{
-            refresher.complete();
-        }*/
     } 
     setcargarMas(){
-        let b = this._lista_noticias_promocion[this._lista_noticias_promocion.length-1];//this._lista_noticias_promocion.pop();
+        let b = this._lista_noticias_promocion[this._lista_noticias_promocion.length-1];
         this.getCargar(b.not_id, '2', null);
-        //this.getCargar('4', '2');
     }
 
 }
-
-   /* setDespliegue(np){
-        if(np.despliegue == 'false'){
-            np.despliegue = 'true';
-        }else{
-           np.despliegue = 'false';
-        }
-    }
-    setScanear(np){
-    
-        this.barcodeScanner.scan().then((barcodeData) => {
-            alert( JSON.stringify(barcodeData));
-        }, (err) => {
-            this.oT.showLongToast('Error');
-        });
-    }
-
-
-
-
-
-     openMenu() {
-        //this.validar_open_menu= true;
-        let actionSheet = this.actionsheetCtrl.create({
-          title: 'Compartir',
-          cssClass: 'action-sheets-basic-page',
-          buttons: [
-            {
-              text: 'Email',
-              icon: !this.platform.is('ios') ? 'mail' : null,
-              handler: () => {
-                this.compartir(1);
-              }
-            },
-            {
-              text: 'Facebook',
-              icon: !this.platform.is('ios') ? 'facebook' : null,
-              handler: () => {
-                this.compartir(2);
-              }
-            },
-            {
-              text: 'Twitter',
-              icon: !this.platform.is('ios') ? 'twitter' : null,
-              handler: () => {
-                this.compartir(3);
-                //this.validar_open_menu= false;
-              }
-            },
-            {
-              text: 'Cancelar',
-              role: 'cancel', // will always sort to be on the bottom
-              icon: !this.platform.is('ios') ? 'close' : null,
-              handler: () => {
-                //this.validar_open_menu= false;
-              }
-            }
-          ]
-        });
-        actionSheet.present();
-        
-  }
-  compartir(op){
-      switch(op) {
-            case 1:
-                this.socialSharing.canShareViaEmail().then(() => {
-                    alert('OK');
-                }).catch(() => {
-                // Sharing via email is not possible
-                });
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
- 
-        }
-
-  }*/

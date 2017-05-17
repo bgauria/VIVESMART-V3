@@ -1,29 +1,27 @@
 import { Component } from '@angular/core';
-import {IonicPage, NavController, NavParams ,Platform, ModalController} from 'ionic-angular';//ActionSheetController
+import {IonicPage, NavController, NavParams ,Platform, ModalController} from 'ionic-angular';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { SocialSharing } from '@ionic-native/social-sharing';
-
 import { Storage } from '@ionic/storage';
-
 import {Entity} from '../../providers/entity';
 import {Url} from '../../providers/url';
 import {Alerta} from '../../providers/alerta';
 import {Load} from '../../providers/load';
 import {Toast} from '../../providers/toast';
-import {Fecha} from '../../providers/fecha';
 import { Alertaganar } from  '../alertaganar/alertaganar';
+import {ConnectivityService} from '../../providers/connectivity-service';
 @IonicPage()
 @Component({
   selector: 'page-detallenoticiapromocion',
   templateUrl: 'detallenoticiapromocion.html',
-  providers: [Entity, Url, Alerta, Load,Fecha, Toast, BarcodeScanner, SocialSharing]
+  providers: [Entity, Url, Alerta, Load, Toast, BarcodeScanner, SocialSharing, ConnectivityService]
 })
 export class Detallenoticiapromocion {
   private su;
   public np:any;
    
-    constructor(  public modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, private platform: Platform, private oUrl: Url//, public actionsheetCtrl: ActionSheetController
-               ,private socialSharing: SocialSharing ,private barcodeScanner: BarcodeScanner ,public storage: Storage, public oEntity: Entity,private oAlerta: Alerta, private oLoad: Load, private oF: Fecha , public oT: Toast) {
+    constructor(  public modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, private platform: Platform, private oUrl: Url, private oCS: ConnectivityService
+               ,private socialSharing: SocialSharing ,private barcodeScanner: BarcodeScanner ,public storage: Storage, public oEntity: Entity,private oAlerta: Alerta, private oLoad: Load, public oT: Toast) {
     this.np= navParams.get('data');
   }
 
@@ -36,20 +34,15 @@ export class Detallenoticiapromocion {
 
      addFavorito(){
         if(this.np.bandera_like == 'light'){
-            //np.bandera_like = 'danger';
             this.createLike(1, this.np);
         }else{
-            //np.bandera_like = 'light';
             this.createLike(0, this.np);
         }
     }
 
      createLike( _key_like, np ){
        
-                /*if(navigator.connection.type == Connection.NONE) {
-                    this.oAlerta.showSinInternet();
-                    this.ifReintentar= true;  
-                }else{*/
+               if(this.oCS.isOnline()) {
                     this.storage.ready().then(() => {
                     this.storage.get('vs_user').then((val) => {   
                         this.su = JSON.parse(val);
@@ -77,8 +70,7 @@ export class Detallenoticiapromocion {
                                     this.oAlerta.show1(data.msg);
                                 } 
                             }, error => {
-                                //this.oAlerta.showVolverIntentar();
-                                this.oAlerta.show1(error);
+                                this.oAlerta.showVolverIntentar();
                             });
                         }else{
                             this.oAlerta.show1('Error, faltan ID');
@@ -87,64 +79,10 @@ export class Detallenoticiapromocion {
                     });                   
                 }); 
             
-        //}
+        }
                      
     }
 
-   /* setDespliegue(np){
-        if(np.despliegue == 'false'){
-            np.despliegue = 'true';
-        }else{
-           np.despliegue = 'false';
-        }
-    }*/
-    
-
-
-
-
-
-  /*   openMenu() {
-        //this.validar_open_menu= true;
-        let actionSheet = this.actionsheetCtrl.create({
-          title: 'Compartir',
-          cssClass: 'action-sheets-basic-page',
-          buttons: [
-            {
-              text: 'Email',
-              icon: !this.platform.is('ios') ? 'mail' : null,
-              handler: () => {
-                this.compartir(1);
-              }
-            },
-            {
-              text: 'Facebook',
-              icon: !this.platform.is('ios') ? 'facebook' : null,
-              handler: () => {
-                this.compartir(2);
-              }
-            },
-            {
-              text: 'Twitter',
-              icon: !this.platform.is('ios') ? 'twitter' : null,
-              handler: () => {
-                this.compartir(3);
-                //this.validar_open_menu= false;
-              }
-            },
-            {
-              text: 'Cancelar',
-              role: 'cancel', // will always sort to be on the bottom
-              icon: !this.platform.is('ios') ? 'close' : null,
-              handler: () => {
-                //this.validar_open_menu= false;
-              }
-            }
-          ]
-        });
-        actionSheet.present();
-        
-  }*/
   compartir(){
      this.socialSharing.share(
        this.np.not_titulo,
@@ -152,7 +90,6 @@ export class Detallenoticiapromocion {
         '',
         this.np.img
         ).then((data) => {
-
         //alert(JSON.stringify(data));
         this.createMisiones(2);
       }).catch(() => {
@@ -162,20 +99,11 @@ export class Detallenoticiapromocion {
   }
   setScanear(){
         this.barcodeScanner.scan().then((barcodeData) => {
-            //alert(JSON.stringify(barcodeData));
-            
-            //let qr = JSON.parse(barcodeData);
-            //alert('---> ' + qr);
-            //alert('---> ' + qr.text);
             if(barcodeData.text == this.np.not_id){
                 this.createMisiones(1);
             }else{
                 this.oAlerta.show1('El Código Escaneado no es válido para esta promoción!');
             }
-            
-            
-            //alert(barcodeData);
-            
         }, (err) => {
             this.oT.showLongToast('Error');
         });
@@ -190,69 +118,62 @@ export class Detallenoticiapromocion {
   }
 
   createMisiones(op){
-       
-                /*if(navigator.connection.type == Connection.NONE) {
-                    this.oAlerta.showSinInternet();
-                    this.ifReintentar= true;  
-                }else{*/
-                    let _key='';
-                    if(op == '1'){
-                        _key= 'KEY_NOTICIAS_QR';
+       if(this.oCS.isOnline()) {
+            let _key='';
+            if(op == '1'){
+                _key= 'KEY_NOTICIAS_QR';
 
-                    }else{
-                        _key= 'KEY_NOTICIAS_COMPARTIR';
-                    }
-                    this.storage.ready().then(() => {
-                    this.storage.get('vs_user').then((val) => {   
-                        this.su = JSON.parse(val);
-                        this.oLoad.showLoading();
-                        var data = JSON.stringify({
-                                                KEY: _key,
-                                                _id_not: this.np.not_id,
-                                                _id_usu: this.su.usu_id
-                                            });
-                        if(this.su.usu_id != ''){
-                            this.oEntity.get(data, this.oUrl.url_noticias_promociones, 0).finally(() => { 
-                                this.oLoad.dismissLoading(); 
-                            }).subscribe(data => {
-                                console.log('--> ' + JSON.stringify(data));
-                                if(data.success == 1){
-                                    //this.oT.showLongToast(data.msg);
-                                    //this.storage.set('vs_user_puntos_acumulados', data.mision_compartir_escanear[0]._ACUM);
-                                    this.storage.remove('vs_user_puntos_acumulados');
-                                    this.storage.set('vs_user_puntos_acumulados', JSON.stringify(
-                                                                            {
-                                                                                usu_nivel: data.mision_compartir_escanear[0].niv,
-                                                                                usu_puntos_proximo_nivel: data.mision_compartir_escanear[0].faltaParaProximoNivel,
-                                                                                usu_puntos_acumulados: data.mision_compartir_escanear[0]._ACUM
-                                                                                
-                                                                            }
-                                                                        ));
+            }else{
+                _key= 'KEY_NOTICIAS_COMPARTIR';
+            }
+            this.storage.ready().then(() => {
+            this.storage.get('vs_user').then((val) => {   
+                this.su = JSON.parse(val);
+                this.oLoad.showLoading();
+                var data = JSON.stringify({
+                                        KEY: _key,
+                                        _id_not: this.np.not_id,
+                                        _id_usu: this.su.usu_id
+                                    });
+                if(this.su.usu_id != ''){
+                    this.oEntity.get(data, this.oUrl.url_noticias_promociones, 0).finally(() => { 
+                        this.oLoad.dismissLoading(); 
+                    }).subscribe(data => {
+                        console.log('--> ' + JSON.stringify(data));
+                        if(data.success == 1){
+                            this.storage.remove('vs_user_puntos_acumulados');
+                            this.storage.set('vs_user_puntos_acumulados', JSON.stringify(
+                                                                    {
+                                                                        usu_nivel: data.mision_compartir_escanear[0].niv,
+                                                                        usu_puntos_proximo_nivel: data.mision_compartir_escanear[0].faltaParaProximoNivel,
+                                                                        usu_puntos_acumulados: data.mision_compartir_escanear[0]._ACUM
+                                                                        
+                                                                    }
+                                                                ));
 
-                                    this.showModalPremio(
-                                        op,
-                                        data.mision_compartir_escanear[0].niv,
-                                        data.mision_compartir_escanear[0].faltaParaProximoNivel,
-                                        data.mision_compartir_escanear[0]._ACUM
-                                    );
-                                    this.storage.remove('vs_LogrosPage_Recargar');
-                                    this.storage.set('vs_LogrosPage_Recargar', '1');
+                            this.showModalPremio(
+                                op,
+                                data.mision_compartir_escanear[0].niv,
+                                data.mision_compartir_escanear[0].faltaParaProximoNivel,
+                                data.mision_compartir_escanear[0]._ACUM
+                            );
+                            this.storage.remove('vs_LogrosPage_Recargar');
+                            this.storage.set('vs_LogrosPage_Recargar', '1');
 
-                                } else {
-                                    this.oAlerta.show1(data.msg);
-                                } 
-                            }, error => {
-                                //this.oAlerta.showVolverIntentar();
-                                this.oAlerta.show1(error);
-                            });
-                        }else{
-                            this.oAlerta.show1('Error, faltan ID');
-                        }
-                            
-                    });                   
-                }); 
+                        } else {
+                            this.oAlerta.show1(data.msg);
+                        } 
+                    }, error => {
+                        this.oAlerta.showVolverIntentar();
+                    });
+                }else{
+                    this.oAlerta.show1('Error, faltan ID');
+                }
+                    
+            });                   
+        }); 
             
-        //}
+        }
                      
     }
 
@@ -264,10 +185,6 @@ export class Detallenoticiapromocion {
             puntosacum: acum 
 
         });
-        /*modal.onDidDismiss(place => {
-            console.log('page > modal dismissed > data > ');
-                   
-        })*/
         modal.present();    
     }
 

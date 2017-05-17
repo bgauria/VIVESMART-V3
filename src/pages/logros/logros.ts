@@ -7,32 +7,20 @@ import {Url} from '../../providers/url';
 import {Alerta} from '../../providers/alerta';
 import {Load} from '../../providers/load';
 import {Toast} from '../../providers/toast';
-
-import {Fecha} from '../../providers/fecha';
-
 import { Alertaganar } from  '../alertaganar/alertaganar';
-//declare var navigator: any;
-//declare var Connection: any;
-/*
-  Benito Auria García
-  0988877109
-  bgauria316@gmail.com
-*/
+import {ConnectivityService} from '../../providers/connectivity-service';
 @Component({
   selector: 'page-logros',
   templateUrl: 'logros.html',
-  providers: [Entity, Url, Alerta, Load,Fecha, Toast]
+  providers: [Entity, Url, Alerta, Load, ConnectivityService, Toast]
 })
 export class LogrosPage {
   
   public ifReintentar;
   public _lista_logros;
   private su;
-
-
-
   constructor(public modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, private platform: Platform, private oUrl: Url, public alertCtrl: AlertController
-                ,public storage: Storage, public oEntity: Entity,private oAlerta: Alerta, private oLoad: Load, private oF: Fecha , public oT: Toast) {
+                ,public storage: Storage, public oEntity: Entity,private oAlerta: Alerta, private oLoad: Load,  public oT: Toast, private oCS: ConnectivityService) {
                   this.ifReintentar= true;
 
                  
@@ -55,11 +43,7 @@ export class LogrosPage {
 
 
    getCargar(){
-       try{ 
-           /* if(navigator.connection.type == Connection.NONE) {
-                this.oAlerta.showSinInternet();
-                this.ifReintentar= true;  
-            }else{*/
+       if(this.oCS.isOnline()) {
                 this.ifReintentar= false;
                 this.storage.ready().then(() => {
                     this.storage.get('vs_user').then((val) => {
@@ -74,7 +58,6 @@ export class LogrosPage {
                           this.oLoad.dismissLoading(); 
                       }).subscribe(data => {
                           if(data.success == 1){
-                              console.log('>>>>>>>>> ' + JSON.stringify(data));
                               this._lista_logros= data.insignia_establecimiento;
                           } else {
                               this.oT.showToast(data.msg, 'middle');
@@ -87,9 +70,6 @@ export class LogrosPage {
                       });
                   });
                 });
-            //}
-      }catch(err) {
-        this.oAlerta.showVolverIntentar();
       } 
         
     }
@@ -98,7 +78,7 @@ export class LogrosPage {
     }
     goToVerDetalleLogro(l){
         let modal = this.modalCtrl.create(Alertaganar, {
-            tipo: '2',
+            tipo: '3',
             nivel: 'x_x' ,
             puntosproximonivel: '33' ,
             puntosacum: '12' 
@@ -109,5 +89,5 @@ export class LogrosPage {
 
 }
 /*
-{"insignia_ins_id":"1","ins_descripcion":"Estrella","ins_img":null,"img":"http://ruteintime.com/ws_vivesmart_v/upload/insignia/Estrella.png","bandera":"true"}
+{"insignia_ins_id":"1","ins_descripcion":"Estrella","ins_img":null,"img":"http://ruteintime.com/ws_vivesmart_v/upload/insignia/Estrella.png","bandera":"false"}
 */

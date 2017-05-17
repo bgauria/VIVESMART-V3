@@ -1,12 +1,5 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams , ViewController} from 'ionic-angular';
-
-/**
- * Generated class for the Alertaganar page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
 @IonicPage()
 @Component({
   selector: 'page-alertaganar',
@@ -27,8 +20,11 @@ export class Alertaganar {
     if(this.tipo == '1'){
       this.msg= '¡Ganaste una Insignia!';
 
-    }else{
+    }else if(this.tipo == '2'){
       this.msg= '¡Ganaste Puntos!';
+      
+    }else{
+      this.msg= '¡Logro!';
     }
 
   }

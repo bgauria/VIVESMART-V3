@@ -3,15 +3,8 @@ import { NavController, NavParams } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { LogrosPage } from '../logros/logros';
 import { PerfilPage } from '../perfil/perfil';
-//import { PromosPage } from '../promos/promos';
 import { TipsPage } from '../tips/tips';
 
-/*
-  Generated class for the Tab page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Component({
   selector: 'page-tab',
   templateUrl: 'tab.html'

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams ,Platform, AlertController} from 'ionic-angular';
+import { NavController, NavParams ,Platform} from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
 import {Entity} from '../../providers/entity';
@@ -7,12 +7,8 @@ import {Url} from '../../providers/url';
 import {Alerta} from '../../providers/alerta';
 import {Load} from '../../providers/load';
 import {Toast} from '../../providers/toast';
-
+import {ConnectivityService} from '../../providers/connectivity-service';
 import { TabPage } from  '../tab/tab';
-//import { ListrutasPage } from  '../listrutas/listrutas';
-import {Fecha} from '../../providers/fecha';
-//declare var navigator: any;
-//declare var Connection: any;
 /*
   Benito Auria García
   0988877109
@@ -21,7 +17,7 @@ import {Fecha} from '../../providers/fecha';
 @Component({
   selector: 'page-usuariosubpreferencia',
   templateUrl: 'usuariosubpreferencia.html',
-  providers: [Entity, Url, Alerta, Load,Fecha, Toast]
+  providers: [Entity, Url, Alerta, Load, Toast,ConnectivityService]
 })
 
 export class UsuariosubpreferenciaPage {
@@ -36,8 +32,8 @@ export class UsuariosubpreferenciaPage {
 
   private sp_seleccionados='';
   private sp_deseleccionados='';
-  constructor( public navCtrl: NavController, public navParams: NavParams, private platform: Platform, private oUrl: Url, public alertCtrl: AlertController
-                ,public storage: Storage, public oEntity: Entity,private oAlerta: Alerta, private oLoad: Load, private oF: Fecha , public oT: Toast) {
+  constructor( public navCtrl: NavController, public navParams: NavParams, private platform: Platform, private oUrl: Url, private oCS: ConnectivityService
+                ,public storage: Storage, public oEntity: Entity,private oAlerta: Alerta, private oLoad: Load, public oT: Toast) {
                   this.ifReintentar= true;
                   this._key_enrutador= navParams.get('data');
                   if(this._key_enrutador == '2'){
@@ -49,40 +45,12 @@ export class UsuariosubpreferenciaPage {
   }
 
   ionViewWillEnter() {
-     // console.log('#############' +this.navParams.data);
     this.getCargar();
-      /*if(typeof this._lista_usu_sub_preferencia === 'undefined' || this._lista_usu_sub_preferencia.length == 0){ 
-            this.storage.get('ListmisvehiculosPage_vehiculos').then((val) => {
-                if(val === null){
-                    this.getCargar();
-                }else{
-                    this.su = JSON.parse(val);     
-                    if(this.oF.getNumYearMasDia() != this.su.fecha){
-                        this.getCargar();
-                    }else{
-                        this.ifReintentar= false;
-                        this._lista_usu_sub_preferencia= this.su.data;
-                    }
-                }
-             });
-        }else{
-            this.storage.get('ListmisvehiculosPage_vehiculos').then((val) => {
-                if(val === null){
-                  console.log('4');
-                    this.getCargar();
-                }
-             });
- 
-        }*/
   }
 
 
    getCargar(){
-       try{ 
-           /* if(navigator.connection.type == Connection.NONE) {
-                this.oAlerta.showSinInternet();
-                this.ifReintentar= true;  
-            }else{*/
+       if(this.oCS.isOnline()) {
                 this.ifReintentar= false;
                 this.storage.ready().then(() => {
                     this.storage.get('vs_user').then((val) => {
@@ -97,15 +65,7 @@ export class UsuariosubpreferenciaPage {
                           this.oLoad.dismissLoading(); 
                       }).subscribe(data => {
                           if(data.success == 1){
-                              console.log('>>>>>>>>> ' + JSON.stringify(data));
                               this._lista_usu_sub_preferencia= data.subpreferencia;
-                              /*this.storage.remove('ListmisvehiculosPage_vehiculos'); 
-                              this.storage.set('ListmisvehiculosPage_vehiculos',JSON.stringify(
-                                                                                    {
-                                                                                        data: data.vehiculo,
-                                                                                        fecha: this.oF.getNumYearMasDia()
-                                                                                    }
-                                                                                ));*/
                           } else {
                               this.oT.showToast(data.msg, 'middle');
                               this.ifReintentar= true;
@@ -117,9 +77,6 @@ export class UsuariosubpreferenciaPage {
                       });
                   });
                 });
-            //}
-      }catch(err) {
-        this.oAlerta.showVolverIntentar();
       } 
         
     }
@@ -150,14 +107,7 @@ export class UsuariosubpreferenciaPage {
     }
 
      getGuardar(){
-       console.log('sp_seleccionados '+this.sp_seleccionados);
-       console.log('sp_deseleccionados '+this.sp_deseleccionados);
-        try{ 
-           /* if(navigator.connection.type == Connection.NONE) {
-                this.oAlerta.showSinInternet();
-                this.ifReintentar= true;  
-            }else{*/
-
+        if(this.oCS.isOnline()) {
                      this.storage.ready().then(() => {
                         this.storage.get('vs_user').then((val) => {
                         this.su = JSON.parse(val);
@@ -173,12 +123,10 @@ export class UsuariosubpreferenciaPage {
                         this.oEntity.get(data, this.oUrl.url_subpreferencias,0).finally(() => { 
                             this.oLoad.dismissLoading(); 
                         }).subscribe(data => {
-                            console.log('>>>>>>>>> ' + JSON.stringify(data));
                             if(data.success == 1){
                                 if(data.u_pref[0].tiene_preferencias != '0'){
                                     this.storage.remove('vs_tiene_preferencias'); 
                                     this.storage.set('vs_tiene_preferencias',data.u_pref[0].tiene_preferencias);
-                                     //console.log('---->---->----> '+ val);
                                     this.oT.showToast(data.msg, 'middle');
                                     this.navCtrl.setRoot(TabPage);
                                 }else{
@@ -194,10 +142,6 @@ export class UsuariosubpreferenciaPage {
                         });
                     });
                     });
-     
-            //}
-      }catch(err) {
-        this.oAlerta.showVolverIntentar();
       }
     }
     goBack() {

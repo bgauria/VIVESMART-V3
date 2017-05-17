@@ -8,7 +8,6 @@ import { TabPage } from '../pages/tab/tab';
 import { UsuariosubpreferenciaPage } from '../pages/usuariosubpreferencia/usuariosubpreferencia';
 import { LogrosPage } from '../pages/logros/logros';
 import { PerfilPage } from '../pages/perfil/perfil';
-import { PromosPage } from '../pages/promos/promos';
 import { TipsPage } from '../pages/tips/tips';
 
 import { Detallenoticiapromocion } from '../pages/detallenoticiapromocion/detallenoticiapromocion';
@@ -35,7 +34,6 @@ import { Push } from '@ionic-native/push';
     UsuariosubpreferenciaPage,
     LogrosPage,
     PerfilPage,
-    PromosPage,
     TipsPage,
     Detallenoticiapromocion,
     Alertaganar,
@@ -57,7 +55,6 @@ import { Push } from '@ionic-native/push';
     UsuariosubpreferenciaPage,
     LogrosPage,
     PerfilPage,
-    PromosPage,
     TipsPage,
     Detallenoticiapromocion,
     Alertaganar,

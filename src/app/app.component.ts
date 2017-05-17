@@ -63,7 +63,6 @@ export class MyApp {
           }else{
             storage.get('vs_tiene_preferencias').then((val) => {
               if(typeof val === 'undefined' || val === null || val =='0'){
-                console.log('---->----> '+ val);
                 this.rootPage = UsuariosubpreferenciaPage;
               }else{
                 this.rootPage = TabPage;

@@ -2,23 +2,18 @@ import { Component } from '@angular/core';
 import { NavController} from 'ionic-angular';
 
 import { Storage } from '@ionic/storage';
-//import { HomePage } from '../home/home';
-//import { LoginPage } from '../login/login';
-
 import {Entity} from '../../providers/entity';
 import {Url} from '../../providers/url';
 import {Alerta} from '../../providers/alerta';
 import {Load} from '../../providers/load';
 import {Validartxt} from '../../providers/validartxt';
 import {Toast} from '../../providers/toast';
+import {ConnectivityService} from '../../providers/connectivity-service';
 
-/*
-  Benito
-*/
 @Component({
   selector: 'page-registro',
   templateUrl: 'registro.html',
-  providers: [Entity, Url, Alerta, Load, Validartxt, Toast]
+  providers: [Entity, Url, Alerta, Load, Validartxt, Toast, ConnectivityService]
 })
 export class RegistroPage {
   public _txtNombre ='';
@@ -35,19 +30,13 @@ export class RegistroPage {
   
 
   constructor(public navCtrl: NavController, public storage: Storage, public oEntity: Entity, public oUrl: Url,
-                 private oAlerta: Alerta, private oLoad: Load, private vtxt: Validartxt, private oT: Toast) { 
+                 private oAlerta: Alerta, private oLoad: Load, private vtxt: Validartxt, private oT: Toast, private oCS: ConnectivityService) { 
 
    
     }
      
      public registrar(){
-       try{ 
-
-       // let validarTxt= true;
-         /*if(navigator.connection.type == Connection.NONE) {
-                this.oAlerta.showSinInternet();
-            }else{*/
-                
+       if(this.oCS.isOnline()) {
                 this.validarTxt = true;
                 if(this.vtxt.validarTxtVacio(this._txtNombre) &&  this.validarTxt){
                     this.oAlerta.show1('Debes agregar un nombre!');	
@@ -101,21 +90,16 @@ export class RegistroPage {
                         this.oLoad.dismissLoading(); 
                     }).subscribe(data => {
                          if(data.success == 1){
-                           
                             this.oT.showToastWithCloseButton(data.msg);
                             this.goBack()
                         } else {
-                            //this.oAlerta.show1("Usuario o Contraseña incorrectos!");
                             this.oAlerta.show1(data.msg);
-                            //this.oT.showLongToast(data.msg);
                         } 
                     }, error => {
                         this.oAlerta.showVolverIntentar();
                     });
                 }
-            //}
-          }catch(err) {
-             this.oAlerta.showVolverIntentar();
+
           } 
     }
   goBack() {

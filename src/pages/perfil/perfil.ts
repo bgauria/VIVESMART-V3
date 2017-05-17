@@ -3,20 +3,10 @@ import { NavController, NavParams , ActionSheetController, Platform} from 'ionic
 import { Storage } from '@ionic/storage';
 import { LoginPage } from  '../login/login';
 
-import {Entity} from '../../providers/entity';
-import {Url} from '../../providers/url';
-import {Alerta} from '../../providers/alerta';
-import {Load} from '../../providers/load';
-import {Toast} from '../../providers/toast';
-import {Fecha} from '../../providers/fecha';
 import { UsuariosubpreferenciaPage } from '../usuariosubpreferencia/usuariosubpreferencia';
 import { CredencialPage } from '../credencial/credencial';
-//import { Camera } from 'ionic-native';
 import { Camera } from '@ionic-native/camera';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
-//import { CameraPreview,  CameraPreviewOptions, CameraPreviewDimensions } from '@ionic-native/camera-preview';
-//declare var navigator: any;
-//declare var Connection: any;
 /*
   Benito Auria García
   0988877109
@@ -25,7 +15,7 @@ import { PhotoViewer } from '@ionic-native/photo-viewer';
 @Component({
   selector: 'page-perfil',
   templateUrl: 'perfil.html',
-  providers: [Entity, Url, Alerta, Load,Fecha, Toast, Camera, PhotoViewer]//CameraPreview
+  providers: [Camera, PhotoViewer]
 })
 export class PerfilPage {
   private su;
@@ -41,9 +31,8 @@ export class PerfilPage {
   public imagen_vacia_1 = true;
   public imagen_1='';
 
- constructor( public navCtrl: NavController, public navParams: NavParams,  private oUrl: Url, public actionsheetCtrl: ActionSheetController
-             ,private photoViewer: PhotoViewer ,private camera: Camera,public platform: Platform ,public storage: Storage, public oEntity: Entity,private oAlerta: Alerta, private oLoad: Load, private oF: Fecha , public oT: Toast) {
-          //private cameraPreview: CameraPreview,
+ constructor( public navCtrl: NavController, public navParams: NavParams,   public actionsheetCtrl: ActionSheetController
+             ,private photoViewer: PhotoViewer ,private camera: Camera,public platform: Platform ,public storage: Storage) {
     
   }
 
@@ -60,16 +49,13 @@ export class PerfilPage {
             
         });
         this.storage.get('vs_foto').then((val) => {
-          //if(val != ''){
           if(typeof val !== 'undefined' && val !== null){
             this.imagen_vacia_1 = false;
             this.imagen_1 = val;
-            console.log('--->--->' + val);
           }
            
         });
          this.storage.get('vs_user_puntos_acumulados').then((val) => {
-          //if(val != ''){
           let d = JSON.parse(val);
           if(typeof val !== 'undefined' && val !== null && typeof d.usu_puntos_acumulados !== 'undefined'){
             this._puntos= d.usu_puntos_acumulados + ' Puntos';
@@ -93,11 +79,9 @@ export class PerfilPage {
             sourceType     : this.camera.PictureSourceType.CAMERA,
             mediaType: this.camera.MediaType.PICTURE
         }).then((imageData) => {
-           // if(this.imagen_1 == null || this.imagen_1 == ''){
                   this.imagen_vacia_1 = false;
                   this.imagen_1 = 'data:image/jpeg;base64,'+imageData;   
                   this.guardarFoto(this.imagen_1);  
-            //}
         }, (err) => {
             console.log(err);
         });
@@ -108,18 +92,15 @@ export class PerfilPage {
             sourceType: this.camera.PictureSourceType.SAVEDPHOTOALBUM,
             destinationType: this.camera.DestinationType.DATA_URL
         }).then((imageData) => {
-           // if(this.imagen_1 == null || this.imagen_1 == ''){
                 this.imagen_vacia_1 = false;
                 this.imagen_1 = 'data:image/jpeg;base64,'+imageData;    
                 this.guardarFoto(this.imagen_1); 
-           // }
         }, (err) => {
           console.log(err);
         });
     }
 
     openMenu(key) {
-        //this.validar_open_menu= true;
         let actionSheet = this.actionsheetCtrl.create({
           title: 'Menú',
           cssClass: 'action-sheets-basic-page',
@@ -132,7 +113,6 @@ export class PerfilPage {
                   this.verImage(this.imagen_1);
                 }
                 
-                //this.validar_open_menu= false;
               }
             },*/
             {
@@ -140,7 +120,6 @@ export class PerfilPage {
               icon: !this.platform.is('ios') ? 'images' : null,
               handler: () => {
                 this.accessGallery();
-                //this.validar_open_menu= false;
               }
             },
             {
@@ -148,7 +127,6 @@ export class PerfilPage {
               icon: !this.platform.is('ios') ? 'camera' : null,
               handler: () => {
                 this.takePhoto();
-                //this.validar_open_menu= false;
               }
             },
             {
@@ -157,15 +135,13 @@ export class PerfilPage {
               icon: !this.platform.is('ios') ? 'trash' : null,
               handler: () => {
                 this.eliminarImagen1();
-                //this.validar_open_menu= false;
               }
             },
             {
               text: 'Cancelar',
-              role: 'cancel', // will always sort to be on the bottom
+              role: 'cancel', 
               icon: !this.platform.is('ios') ? 'close' : null,
               handler: () => {
-                //this.validar_open_menu= false;
               }
             }
           ]
@@ -181,14 +157,8 @@ export class PerfilPage {
     }
 
     verImage(url_photo){
-      alert('x_x');
       this.photoViewer.show(url_photo);
     }
-
-
-
-
-
 
 guardarFoto(_foto){
    this.storage.ready().then(() => {
