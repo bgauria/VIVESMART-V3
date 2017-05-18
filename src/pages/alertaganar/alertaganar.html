@@ -1,6 +1,6 @@
 <ion-header class=modal>
   <ion-navbar color="">
-    <ion-title >{{msg}}</ion-title>
+    <ion-title >{{_titulo}}</ion-title>
      
     
      <ion-buttons start>
@@ -14,22 +14,25 @@
 
 
 <ion-content padding>
-  <!--p>tipo {{tipo}}  </p>
-  <p>Nivel {{nivel}}  </p>
-  <p>puntosproximonivel {{puntosproximonivel}}  </p>
-  <p>puntosacum  {{puntosacum}}  </p-->
-  <div class="txt">
-    <!-- -imagen de la insignia q se activa-->
+
+  <div class="txt" *ngIf="ifBandera">
     <h1>
       Ponte Smart
-      <!-- remplazar por nombre de la insignia q se activa-->
     </h1>
     <p>¡Gracias por descargar la aplicación ViveSmart! Aprovecha todos los beneficios que te da tu</p>
     <img src="assets/imgs/cvs.png" alt="Cuenta ViveSmart">  
   </div>
 
+  <div class="txt" *ngIf="!ifBandera">
+    <img  [src]="_imagen">
+    <h1>
+      {{_nombre}}
+    </h1>
+    <p>{{_descripcion}}</p> 
+  </div>
+
 
 </ion-content>
 <ion-footer class="footer">
-  <ion-title>¡Buen trabajo!</ion-title>
+  <ion-title>{{_pie}}</ion-title>
 </ion-footer>

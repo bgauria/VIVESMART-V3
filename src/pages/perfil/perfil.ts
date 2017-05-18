@@ -78,7 +78,9 @@ export class PerfilPage {
             destinationType: this.camera.DestinationType.DATA_URL,
             sourceType     : this.camera.PictureSourceType.CAMERA,
             mediaType: this.camera.MediaType.PICTURE,
-            correctOrientation: true
+            correctOrientation: true,
+            targetWidth: 300,
+            targetHeight: 300
         }).then((imageData) => {
                   this.imagen_vacia_1 = false;
                   this.imagen_1 = 'data:image/jpeg;base64,'+imageData;   

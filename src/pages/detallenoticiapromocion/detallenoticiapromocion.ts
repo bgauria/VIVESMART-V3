@@ -180,9 +180,9 @@ export class Detallenoticiapromocion {
     showModalPremio(tipo, nivel, puntosproximonivel, acum){
         let modal = this.modalCtrl.create(Alertaganar, {
             tipo: tipo,
-            nivel: nivel ,
-            puntosproximonivel: puntosproximonivel ,
-            puntosacum: acum 
+            //nivel: nivel ,
+            //puntosproximonivel: puntosproximonivel ,
+            //puntosacum: acum 
 
         });
         modal.present();    

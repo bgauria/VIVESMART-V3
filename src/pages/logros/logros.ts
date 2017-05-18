@@ -57,6 +57,7 @@ export class LogrosPage {
                       this.oEntity.get(data, this.oUrl.url_logros,0).finally(() => { 
                           this.oLoad.dismissLoading(); 
                       }).subscribe(data => {
+                          console.log('--> ' + JSON.stringify(data));
                           if(data.success == 1){
                               this._lista_logros= data.insignia_establecimiento;
                           } else {
@@ -79,15 +80,13 @@ export class LogrosPage {
     goToVerDetalleLogro(l){
         let modal = this.modalCtrl.create(Alertaganar, {
             tipo: '3',
-            nivel: 'x_x' ,
-            puntosproximonivel: '33' ,
-            puntosacum: '12' 
+            _imagen: l.img ,
+            _nombre: l.ins_name ,
+            _descripcion: l.ins_descripcion,
+            _bandera: l.bandera
 
         });
         modal.present();    
     }
 
 }
-/*
-{"insignia_ins_id":"1","ins_descripcion":"Estrella","ins_img":null,"img":"http://ruteintime.com/ws_vivesmart_v/upload/insignia/Estrella.png","bandera":"false"}
-*/
