@@ -77,7 +77,8 @@ export class PerfilPage {
         this.camera.getPicture({
             destinationType: this.camera.DestinationType.DATA_URL,
             sourceType     : this.camera.PictureSourceType.CAMERA,
-            mediaType: this.camera.MediaType.PICTURE
+            mediaType: this.camera.MediaType.PICTURE,
+            correctOrientation: true
         }).then((imageData) => {
                   this.imagen_vacia_1 = false;
                   this.imagen_1 = 'data:image/jpeg;base64,'+imageData;   
