@@ -1,5 +1,6 @@
 page-tips {
-		.back-button{
+	padding: 16px 0 !important ;
+	.back-button{
 	    color: #fff;
 	    background-color: transparent;
 	    position: absolute;
@@ -20,6 +21,10 @@ page-tips {
 	.text-input:-moz-placeholder { /* Firefox 18- */
 	  color: white;
 	}
+	h2{
+		font-weight: bolder;
+		margin-top:10px !important;
+	}
 
 	.contenido{
 		.scroll-content{
@@ -28,18 +33,6 @@ page-tips {
 			margin: auto 5px;
 			.card-content{
 				padding: 0;
-				.like{
-		    		color: $blue;
-		    		padding-left: 0;
-		    		.icon{
-		    			background: rgba($blue-light, 0.43);
-					    padding: 4px 6px;
-					    border-radius: 50%;
-					    font-size: 18px;
-					    line-height: 18px;
-					    margin: 0;
-		    		}
-		    	}
 		    	.grid{
 		    		padding: 0;
 		    		margin: 0;
@@ -61,7 +54,10 @@ page-tips {
 				}
 			}
 			.sinopsis{
-				margin: 0 5px 0 0;
+				margin: 05px 0 0;
+				overflow: hidden;
+				padding-right: 10px;
+
 		    
 			}
 
@@ -73,15 +69,10 @@ page-tips {
     	
 		}	
 
-		h2{
-			//font-size:25px ;
-			font-weight: 800;
-			padding-top: 0;
-    		margin-top: 0;
-
-		}
+		
 		p{
-			//font-size: 15px;
+			font-size: 11px;
+			text-align: justify;
 		&:first-letter{
 			text-transform: capitalize;
 
@@ -97,6 +88,7 @@ page-tips {
 
 	.title{
 		text-align: center;
+		padding-left: 0;
 		.logo{ 
 			max-width: 20%;
     		margin: 0 auto;

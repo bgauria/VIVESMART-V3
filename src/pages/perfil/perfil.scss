@@ -31,13 +31,16 @@ page-perfil {
 	.header{
 		
 		.toolbar-title, .toolbar-title-md{
-			background: url(../assets/imgs/profil_icon.png) center left no-repeat;	
-			background-size: 15%;		
+			padding:2px;	
 		}
 
 		h1{
+			background: url(../assets/imgs/profil_icon.png) center left no-repeat;	
+			background-size: 13%;
 			color:white;
-			padding-left: 40px;
+			margin: 5px 0;
+			text-align: left;
+			padding: 10px 0 10px 22%;
 		}
 		.toolbar-background-md{
 			background: none;
@@ -52,10 +55,11 @@ page-perfil {
 		    background-size: cover;
 		    overflow: hidden;
 		    img{
+				//width: 100%;
+				//height: 100%;
 		    	border-radius:50%;
 		    	border: 5px solid rgba($blue, 0.7) ;
-		    	
-		    }
+				}
 
 		}
 		.informacion{

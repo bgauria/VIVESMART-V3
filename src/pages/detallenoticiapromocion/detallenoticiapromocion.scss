@@ -20,6 +20,10 @@ page-detallenoticiapromocion {
 	.text-input:-moz-placeholder { /* Firefox 18- */
 	  color: white;
 	}
+	h2{
+		font-weight: bolder;
+		margin-top:10px !important;
+	}
 
 	.contenido{
 		.scroll-content{
@@ -75,13 +79,12 @@ page-detallenoticiapromocion {
 
 		h2{
 			//font-size:25px ;
-			font-weight: 800;
 			padding-top: 0;
-    		margin-top: 0;
-
+			font-weight: bolder;
 		}
 		p{
 			//font-size: 15px;
+			text-align: justify;
 		&:first-letter{
 			text-transform: capitalize;
 

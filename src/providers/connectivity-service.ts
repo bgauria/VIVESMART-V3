@@ -12,13 +12,14 @@ export class ConnectivityService {
   }
   
   isOnline(): boolean {
-     /* if(navigator.connection.type == Connection.NONE) {
+      if(navigator.connection.type == Connection.NONE) {
         this.showSinInternet();
         return false;
       }else{ 
         return true;
-      }*/
-     return true;
+      }
+
+     //return true;
         
   }
 

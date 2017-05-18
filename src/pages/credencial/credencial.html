@@ -1,28 +1,33 @@
-<ion-header>
-  <ion-navbar color="">
-    <ion-title>Usuario y Contraseña</ion-title>
-  </ion-navbar>
-</ion-header>
+<ion-content padding="false" style="background: url(assets/imgs/MzC4faYeQr2AnaRD3qbY_fondo.jpg) no-repeat center;background-size:cover;" class="manual-ios-statusbar-padding" class="contenido">
 
-<ion-content padding>
-  <ion-item>
-     <ion-icon name='person' item-left></ion-icon>
-    <ion-label floating color="primary">Usuario</ion-label>
-    <ion-input type="text" color="primary" [(ngModel)]="_txtUsuario"></ion-input>
-  </ion-item>
-  <ion-item>
-     <ion-icon name='lock' item-left></ion-icon>
-    <ion-label floating color="primary">Contraseña</ion-label>
-    <ion-input type="password" color="primary" [(ngModel)]="_txtClave"></ion-input>
-  </ion-item>
-  <ion-item>
-     <ion-icon name='lock' item-left></ion-icon>
-    <ion-label floating color="primary">Confirmar</ion-label>
-    <ion-input type="password" color="primary" [(ngModel)]="_txtConfirmar"></ion-input>
-  </ion-item>
+	<h1>Cambiar Contraseña</h1>
+	<div class="my-input">
+		<ion-icon color="vibrant" name="contact" role="img" class="icon icon-ios icon-ios-vibrant ion-ios-contact" aria-label="contact" ng-reflect-color="vibrant" ></ion-icon> 
+		<ion-item class="user input" style="padding-left: 0;">
+			<ion-input placeholder="Usuario" type="text" [(ngModel)]="_txtUsuario"></ion-input>
+		</ion-item>         
+	 </div>
 
-   <div padding>
-    <button ion-button full color="color_indigo_500" (click)="enviar();">Guardar Cambios</button>
-  </div>
+	<div class="my-input">
+		<ion-icon ios="ios-lock" md="md-lock"></ion-icon>
+		<ion-item class="user input" style="padding-left: 0;">
+			<ion-input type="password" placeholder="Contraseña" [(ngModel)]="_txtClave"></ion-input>
+		</ion-item>        
+	</div>
+			
+	<div class="my-input">
+		<ion-icon ios="ios-lock" md="md-lock"></ion-icon>
+		<ion-item class="user input" style="padding-left: 0;">
+			<ion-input type="password" placeholder="Confirmar Contraseña" [(ngModel)]="_txtConfirmar"></ion-input>
+		</ion-item>        
+	</div>
+			
+
+
+	 <div padding>
+		<button id="btn-login" class="btn btn-login" (click)="enviar();">Guardar Cambios</button>
+		
+	</div>
 
 </ion-content>
+

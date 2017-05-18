@@ -1,3 +1,45 @@
 page-credencial {
+	font-family: font129281;
+	.text-input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+	  color: white;
+	}
+	.text-input::-moz-placeholder { /* Firefox 19+ */
+	  color: white;
+	}
+	.text-input:-ms-input-placeholder { /* IE 10+ */
+	  color: white;
+	}
+	.text-input:-moz-placeholder { /* Firefox 18- */
+	  color: white;
+	}
+	
+	h1{color:white;}
+
+	.my-input{
+		margin-bottom: 20px;
+		position: relative;
+		overflow: hidden;
+		.icon{
+			color: white;
+			width: 10%;
+			display: inline;
+			font-size: 25px;
+			border-right: 1px solid white;
+		    padding: 20px 15px;
+		    text-align: center;
+		    line-height: 45px;	
+		}
+		.user{
+			background: none;
+		    color: white;
+		    width: 80%;
+		    display: inline;
+		    float: right;
+
+		}
+		.item-md.item-block .item-inner{
+			border-bottom:0 !important;
+		}
+	}
 
 }
