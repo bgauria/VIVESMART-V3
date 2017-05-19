@@ -89,7 +89,9 @@ export class LoginPage {
 
                         
                     } else {
-                        this.oAlerta.show1("Usuario o Contraseña incorrectos!");
+                        //this.oAlerta.show1("Usuario o Contraseña incorrectos!");
+                        this.oAlerta.show1(data.msg);
+                        
                     }   
                 }, error => {
                     this.oAlerta.showVolverIntentar();

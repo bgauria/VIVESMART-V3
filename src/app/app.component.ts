@@ -6,7 +6,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { LoginPage } from '../pages/login/login';
 import { TabPage } from '../pages/tab/tab';
 import { UsuariosubpreferenciaPage } from '../pages/usuariosubpreferencia/usuariosubpreferencia';
-//import { Push, PushObject, PushOptions } from '@ionic-native/push';
+import { Push, PushObject, PushOptions } from '@ionic-native/push';
 
 import {Toast} from '../providers/toast';
 
@@ -21,11 +21,10 @@ import { Storage } from '@ionic/storage';
 export class MyApp {
   rootPage:any; //= LoginPage;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, storage: Storage, public oT: Toast ){//, private push: Push) {
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, storage: Storage, public oT: Toast , private push: Push) {
     platform.ready().then(() => {
-        ///////////////////////////////////////////////////////////////
-
-        /*const options: PushOptions = {
+       
+        const options: PushOptions = {
           android: {
               senderID: '642734409312',
               vibrate: true,
@@ -49,7 +48,7 @@ export class MyApp {
             storage.ready().then(() => {
                 storage.set('vs_code_push', registration.registrationId.toString());
             });
-        });*/
+        });
 
       ////////////////////////////////////////////////////////////////
       statusBar.styleDefault();

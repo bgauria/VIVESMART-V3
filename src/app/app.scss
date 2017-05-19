@@ -1,4 +1,4 @@
-// http://ionicframework.com/docs/v2/theming/
+/*// http://ionicframework.com/docs/v2/theming/
 
 
 // App Global Sass
@@ -97,7 +97,240 @@ ion-label{font-size: 1.7rem;}
 
 .icon-md-light{
 	color: $blue;
+}*/
+
+$white: #fff;
+$blue: #036aa9;
+$blue-light: #d0eaf8;
+$blue-dark: #053c92;
+
+
+@font-face{
+	font-family: "DIN";
+	src: url(../assets/fonts/DINNextSlabPro-Light.ttf);
 }
 
+
+html, body, h1, h2, h3, h4, h5, h6, p, div, span{
+	font-family: "DIN";
+	color: $blue;
+}
+
+h1{font-weight: 400;}
+h2{
+	font-weight: 600; 
+	font-size:20px;
+}
+
+// mixin
+@mixin hover-btn($bg, $color-font){
+	background: $bg;
+	color: $color-font;
+}
+
+@mixin padding-margin($value){
+	padding: $value;
+	margin: $value;
+}
+//placeholder
+
+%placeholder-text {
+	font-family: font129281;
+  .text-input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+	  color: white;
+	}
+	.text-input::-moz-placeholder { /* Firefox 19+ */
+	  color: white;
+	}
+	.text-input:-ms-input-placeholder { /* IE 10+ */
+	  color: white;
+	}
+	.text-input:-moz-placeholder { /* Firefox 18- */
+	  color: white;
+	}
+}
+
+%back-button{
+	color: #fff;
+	background-color: transparent;
+	position: absolute;
+	top: 10%;
+	z-index: 999;
+}
+
+%basic-btn{
+	background: $blue-light;
+	color: $blue;
+	box-shadow: initial;
+	padding: 25px 5px;
+	margin-bottom: 0;
+	font-size: 15px;
+	&:hover{@include hover-btn(white, $blue);}
+}
+
+%my_input{
+	margin-bottom: 20px;
+	position: relative;
+	overflow: hidden;
+}
+%icon-input{
+	color: white;
+	width: 10%;
+	display: inline;
+	font-size: 25px;
+	border-right: 1px solid white;
+	padding: 20px 15px;
+	text-align: center;
+	line-height: 45px;	
+}
+%user-input{
+	background: none;
+	color: white;
+	width: 80%;
+	display: inline;
+	float: right;
+}
+
+
+%scroll-content{
+	.scroll-content{
+	padding: 16px 0 !important ;
+	background-color: rgba(244, 244, 244, 0.3);
+	margin: auto 15px;
+	.card-content{
+		padding: 0;
+			.like{
+			color: $blue;
+			padding-left: 0;
+				.icon{
+				background: $blue-light;
+				padding: 4px 6px;
+				border-radius: 50%;
+				font-size: 18px;
+				line-height: 18px;
+				margin: 0;
+				}
+				.icon-md-light{color: $blue;}
+			}
+		}
+		.imagen{
+			position: relative;
+			width: 100%;
+			padding:0;
+			.description{
+				padding: 0;
+				background: rgba(0, 0, 0, 0.5);
+				color: white;
+				position: absolute;
+				width: 100%;
+				font-size: 12px;
+				top: 0;
+			}
+		}
+		.sinopsis{
+			margin: 0 5px 0 0;
+			overflow: hidden;
+			padding-right: 10px;
+		}
+	}
+	.card-title, .card-title-md{
+		margin: 0;
+		padding: 8px 0 0 0;		
+	}	
+	h2{
+		font-size:	16px ;
+		font-weight: 800;
+		padding-top: 0;
+		margin-top: 0;
+	}
+	p{
+		font-size: 11px;
+		&:first-letter{text-transform: capitalize;}
+	}
+	p, h2{ 
+		color: $blue-dark;
+	}
+}
+
+%title-icon{
+	text-align: center;
+		.logo{ 
+			max-width: 20%;
+    		margin: 0 auto;
+		}
+}
+
+%h1-icon{
+	color:white;
+	padding-left:50px;
+	text-align: left;
+}
+
+.my-input{
+	background: rgba(255,255,255,0.2);
+	border-radius: 5px;
+	padding: 2px;
+	font-size: 18px;
+	color: white;
+	input{
+		color: white;
+	}
+}
+
+.btn{
+		padding: 10px;
+		border-radius: 5px;
+		margin-bottom: 20px;
+		font-size: 18px;
+	}
+	.btn-login{
+		width: 100%;
+		background: rgba(255,255,255,0.9);
+		color: $blue;
+	}
+	.btn-group{
+		width: 48%; 
+		display: inline-block;
+		padding: 5px 10px;
+		float: left;	
+		color: white;	
+		background: url('../assets/imgs/bg-btn.png') repeat-x bottom center;
+		background-size: 15%;
+	}
+	.btn-omega{
+		float: right;
+	}
+.button-bar{
+	width: 90%;
+	margin: 10px auto 0 auto;
+}
+.item-ios.item-block .item-inner{border-bottom: 0;}
+.text-input-md{margin: 5px;}
+.toolbar-background-ios{background: none;}
+.list-ios > .item-block:last-child{border-bottom: 2px solid #017dc7}
+ion-label{font-size: 1.7rem;}
+.list-md .item-block .item-inner{
+	border-bottom: none;
+}
+.has-refresher > .scroll-content{
+	border-top: none;
+}
+
+.header{
+	background: url(../assets/imgs/MzC4faYeQr2AnaRD3qbY_fondo.jpg) no-repeat center;background-size:cover;
+	.title{
+		padding-left: 5px;
+	}
+}
+
+.icon-md-light{
+	color: $blue;
+}
+
+
+
+ion-content{
+	background: url(../assets/imgs/MzC4faYeQr2AnaRD3qbY_fondo.jpg) no-repeat center;background-size:cover;
+}
 
 

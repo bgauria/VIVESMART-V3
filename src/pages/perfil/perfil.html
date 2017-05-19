@@ -18,9 +18,10 @@
 <ion-content padding="false" style="background: url(assets/imgs/MzC4faYeQr2AnaRD3qbY_fondo.jpg) no-repeat center;background-size:cover;" class="manual-ios-statusbar-padding" class="contenido">
 
 <ion-grid class="perfil">
-	<ion-col col-4 offset-4 class="avatar" (click)="openMenu();">
-		 <img src="assets/imgs/img-perfil.jpg" *ngIf="imagen_vacia_1" height="100" width="100" />
-     <img [src]="imagen_1" *ngIf="imagen_1" height="100" width="100" height="100"/>
+	<ion-col col-6 offset-3 class="avatar" (click)="openMenu();">
+		<!--img src="assets/x/3.jpg" height="150" width="150" /-->
+		 <img src="assets/imgs/img-perfil.jpg" *ngIf="imagen_vacia_1" height="150" width="150" />
+     	 <img [src]="imagen_1" *ngIf="imagen_1" height="100" width="150" height="150"/>
 	</ion-col>
 	<div class="informacion">
 	<ion-row class="name">

@@ -19,7 +19,7 @@ export class ConnectivityService {
         return true;
       }
 
-     //return true;
+    // return true;
         
   }
 

@@ -1,102 +1,12 @@
 page-home {
-	font-family: font129281;
-	.text-input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-	  color: white;
-	}
-	.text-input::-moz-placeholder { /* Firefox 19+ */
-	  color: white;
-	}
-	.text-input:-ms-input-placeholder { /* IE 10+ */
-	  color: white;
-	}
-	.text-input:-moz-placeholder { /* Firefox 18- */
-	  color: white;
-	}
+	@extend %placeholder-text;
 
 	.contenido{
-		.scroll-content{
-			padding: 16px 0 !important ;
-			background-color: rgba(244, 244, 244, 0.3);
-			margin: auto 15px;
-			.card-content{
-				padding: 0;
-				.like{
-	    		color: $blue;
-	    		padding-left: 0;
-	    		.icon{
-	    			background: $blue-light;
-				    padding: 4px 6px;
-				    border-radius: 50%;
-				    font-size: 18px;
-				    line-height: 18px;
-				    margin: 0;
-	    		}
-	    		.icon-md-light{
-				    color: $blue;
-	    			
-	    		}
-	    	}
-			}
-			.imagen{
-				position: relative;
-				width: 100%;
-				padding:0;
-
-				.description{
-					padding: 0;
-				    background: rgba(0, 0, 0, 0.5);
-				    color: white;
-				    position: absolute;
-				    width: 100%;
-				    font-size: 12px;
-				    top: 0;
-				}
-			}
-			.sinopsis{
-				margin: 0 5px 0 0;
-				overflow: hidden;
-				padding-right: 10px;
-		    
-			}
-
-
-		}
-		.card-title, .card-title-md{
-			margin: 0;
-    	padding: 8px 0 0 0;
-    	
-		}	
-
-		h2{
-			font-size:	16px ;
-			font-weight: 800;
-			padding-top: 0;
-    	margin-top: 0;
-
-		}
-		p{
-			font-size: 11px;
-		&:first-letter{
-			text-transform: capitalize;
-
-		}
-		}
-		p, h2{ 
-			color: #0269a8;
-		}
+		@extend %scroll-content;
 	}
 	.toolbar-background-md{
 		background: none;
 	}
 
-	.title{
-		text-align: center;
-		padding:0;
-		.logo{ 
-			max-width: 20%;
-    		margin: 0 auto;
-		}
-	}
-
-	
+	.title{@extend %title-icon;}	
 }

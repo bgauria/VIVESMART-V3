@@ -1,21 +1,14 @@
 page-logros {
 	.toolbar-background-ios{background: none;}
 
-
-
 	.header{
 		.toolbar-title, .toolbar-title-md{
-			
-			padding:2px;		
+			background: url(../assets/imgs/star.png) center left no-repeat;	
+			background-size: 15%;		
 		}
 
 		h1{
-			background: url(../assets/imgs/star.png) center left no-repeat;	
-			background-size: 16%;
-			color:white;
-			margin: 5px 0;
-			text-align: left;
-			padding: 10px 0 10px 22%;
+			@extend %h1-icon;
 		}
 		.toolbar-background-md{
 			background: none;
@@ -31,7 +24,7 @@ page-logros {
 			font-size: 1.3rem;
 			margin-top: 0;
 			text-align: center;
-			color: #053c92;
+			color: $blue-dark;
 			font-weight: bolder;
 
 		}

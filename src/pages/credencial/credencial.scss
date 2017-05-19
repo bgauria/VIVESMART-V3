@@ -1,33 +1,13 @@
 page-credencial {
-	font-family: font129281;
-	.text-input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-	  color: white;
-	}
-	.text-input::-moz-placeholder { /* Firefox 19+ */
-	  color: white;
-	}
-	.text-input:-ms-input-placeholder { /* IE 10+ */
-	  color: white;
-	}
-	.text-input:-moz-placeholder { /* Firefox 18- */
-	  color: white;
-	}
+	
+	@extend %placeholder-text;
 	
 	h1{color:white;}
 
 	.my-input{
-		margin-bottom: 20px;
-		position: relative;
-		overflow: hidden;
+		@extend %my_input;
 		.icon{
-			color: white;
-			width: 10%;
-			display: inline;
-			font-size: 25px;
-			border-right: 1px solid white;
-		    padding: 20px 15px;
-		    text-align: center;
-		    line-height: 45px;	
+			@extend %icon-input;
 		}
 		.user{
 			background: none;
