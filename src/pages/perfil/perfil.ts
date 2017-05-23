@@ -7,6 +7,13 @@ import { UsuariosubpreferenciaPage } from '../usuariosubpreferencia/usuariosubpr
 import { CredencialPage } from '../credencial/credencial';
 import { Camera } from '@ionic-native/camera';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
+
+import {Alerta} from '../../providers/alerta';
+import {Load} from '../../providers/load';
+import {Entity} from '../../providers/entity';
+import {Url} from '../../providers/url';
+import {ConnectivityService} from '../../providers/connectivity-service';
+
 /*
   Benito Auria García
   0988877109
@@ -15,7 +22,7 @@ import { PhotoViewer } from '@ionic-native/photo-viewer';
 @Component({
   selector: 'page-perfil',
   templateUrl: 'perfil.html',
-  providers: [Camera, PhotoViewer]
+  providers: [Camera, PhotoViewer, Alerta, Load, Entity, Url, ConnectivityService]
 })
 export class PerfilPage {
   private su;
@@ -27,12 +34,13 @@ export class PerfilPage {
   public _cedula = '';
   public _corro = '';
   public _user ='';
-
+  public _id_user ='';
   public imagen_vacia_1 = true;
   public imagen_1='';
 
  constructor( public navCtrl: NavController, public navParams: NavParams,   public actionsheetCtrl: ActionSheetController
-             ,private photoViewer: PhotoViewer ,private camera: Camera,public platform: Platform ,public storage: Storage) {
+             ,private photoViewer: PhotoViewer ,private camera: Camera,public platform: Platform ,public storage: Storage,
+             private oAlerta: Alerta, private oLoad: Load, public oEntity: Entity, public oUrl: Url, private oCS: ConnectivityService) {
     
   }
 
@@ -44,12 +52,11 @@ export class PerfilPage {
             this._cedula= this.su.usu_cedula;
             this._corro= this.su.usu_correo;
             this._user= this.su.usu_user;
-            //this._puntos= this.su.usu_puntos_acumulados + ' Puntos';
-
-            
+            this._id_user= this.su.usu_id;
+                     
         });
         this.storage.get('vs_foto').then((val) => {
-          if(typeof val !== 'undefined' && val !== null){
+          if(typeof val !== 'undefined' && val !== null && val !== ''){
             this.imagen_vacia_1 = false;
             this.imagen_1 = val;
           }
@@ -82,11 +89,10 @@ export class PerfilPage {
             targetWidth: 300,
             targetHeight: 300
         }).then((imageData) => {
-                  this.imagen_vacia_1 = false;
-                  this.imagen_1 = 'data:image/jpeg;base64,'+imageData;   
-                  this.guardarFoto(this.imagen_1);  
+                  let i = 'data:image/jpeg;base64,'+ imageData;   
+                  this.guardarFoto(i);  
         }, (err) => {
-            console.log(err);
+            this.oAlerta.show1('ERROR: ' + err);
         });
     }
 
@@ -94,12 +100,11 @@ export class PerfilPage {
         this.camera.getPicture({
             sourceType: this.camera.PictureSourceType.SAVEDPHOTOALBUM,
             destinationType: this.camera.DestinationType.DATA_URL
-        }).then((imageData) => {
-                this.imagen_vacia_1 = false;
-                this.imagen_1 = 'data:image/jpeg;base64,'+imageData;    
-                this.guardarFoto(this.imagen_1); 
+        }).then((imageData) => { 
+                let i = 'data:image/jpeg;base64,'+imageData; 
+                this.guardarFoto(i); 
         }, (err) => {
-          console.log(err);
+          this.oAlerta.show1('ERROR: ' + err);
         });
     }
 
@@ -154,22 +159,54 @@ export class PerfilPage {
   }
 
    eliminarImagen1(){
-        this.storage.remove('vs_foto');
-        this.imagen_vacia_1= true;
-        this.imagen_1='';
+        this.guardarFoto('');
     }
 
     verImage(url_photo){
       this.photoViewer.show(url_photo);
     }
 
-guardarFoto(_foto){
-   this.storage.ready().then(() => {
-        this.storage.remove('vs_foto');
-        this.storage.set('vs_foto', _foto);
-    });     
+guardarFoto(foto){
+  
+        if(this.oCS.isOnline()) {
+            if( this._id_user != ''){      
+                this.oLoad.showLoading(); 
+                var data = JSON.stringify({
+                                            KEY: 'KEY_USUARIO_UPDATE_FOTO',
+                                            _id_user: this._id_user,
+                                            _foto: foto,
+                                            _ruta_imagen_eliminar: this.imagen_1
+                                         });
+                this.oEntity.get(data, this.oUrl.url_usuario, 0).finally(() => { 
+                    this.oLoad.dismissLoading(); 
+                }).subscribe(data => {
+                    if(data.success == 1){
+                        this.storage.ready().then(() => {
+                            this.storage.remove('vs_foto');
+                            this.storage.set('vs_foto', data.foto);
+                            if(foto != ''){
+                              
+                              this.imagen_1 =data.foto;
+                              this.imagen_vacia_1 = false;
+                            }else{
+                              this.imagen_vacia_1 = true;
+                              this.imagen_1 ='';
+                              
+                            }
+                            
+                        });     
+                    } else {
+                        this.oAlerta.show1(data.msg);     
+                    }   
+                }, error => {
+                    this.oAlerta.showVolverIntentar();
 
-}
+                });
+        
+            }
+  
+        } 
+    }
 
 
 
@@ -178,7 +215,7 @@ guardarFoto(_foto){
       
         this.storage.remove('vs_user');
         this.storage.remove('vs_user_puntos_acumulados');
-        //this.storage.remove('vs_foto');
+        this.storage.remove('vs_foto');
         this.storage.remove('vs_code_push');
         this.storage.remove('vs_HomePage_lista_noticias');
         this.storage.remove('vs_HomePage_lista_promociones');

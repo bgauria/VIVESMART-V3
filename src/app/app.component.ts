@@ -47,6 +47,7 @@ export class MyApp {
         pushObject.on('registration').subscribe((registration: any) =>{
             storage.ready().then(() => {
                 storage.set('vs_code_push', registration.registrationId.toString());
+                //alert(registration.registrationId.toString());
             });
         });
 

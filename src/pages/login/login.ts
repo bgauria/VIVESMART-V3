@@ -77,6 +77,7 @@ export class LoginPage {
                                                                         ));
                             this.storage.set('vs_tiene_preferencias', data.usuario[0].tiene_subpreferencias);
                             this.storage.set('vs_usuario', this.user);
+                            this.storage.set('vs_foto', data.foto);
 
         
                             
