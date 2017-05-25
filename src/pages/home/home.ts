@@ -71,7 +71,9 @@ export class HomePage {
                 this.storage.ready().then(() => {
                     this.storage.get('vs_user').then((val) => {
                       this.su = JSON.parse(val);
-                      this.oLoad.showLoading();
+                      //if(sp != '3'){
+                        this.oLoad.showLoading();
+                     // }
                       var data = JSON.stringify({
                                                   KEY: 'KEY_SELECT_NOTICIAS_PROMOCIONES',
                                                   _id_usuario:  this.su.usu_id,

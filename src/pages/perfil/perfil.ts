@@ -7,6 +7,7 @@ import { UsuariosubpreferenciaPage } from '../usuariosubpreferencia/usuariosubpr
 import { CredencialPage } from '../credencial/credencial';
 import { Camera } from '@ionic-native/camera';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
+import { Diagnostic } from '@ionic-native/diagnostic';
 
 import {Alerta} from '../../providers/alerta';
 import {Load} from '../../providers/load';
@@ -22,7 +23,7 @@ import {ConnectivityService} from '../../providers/connectivity-service';
 @Component({
   selector: 'page-perfil',
   templateUrl: 'perfil.html',
-  providers: [Camera, PhotoViewer, Alerta, Load, Entity, Url, ConnectivityService]
+  providers: [Diagnostic, Camera, PhotoViewer, Alerta, Load, Entity, Url, ConnectivityService]
 })
 export class PerfilPage {
   private su;
@@ -40,8 +41,39 @@ export class PerfilPage {
 
  constructor( public navCtrl: NavController, public navParams: NavParams,   public actionsheetCtrl: ActionSheetController
              ,private photoViewer: PhotoViewer ,private camera: Camera,public platform: Platform ,public storage: Storage,
-             private oAlerta: Alerta, private oLoad: Load, public oEntity: Entity, public oUrl: Url, private oCS: ConnectivityService) {
+             private oAlerta: Alerta, private oLoad: Load, public oEntity: Entity, public oUrl: Url, private oCS: ConnectivityService,
+             private diagnostic: Diagnostic) {
     
+     platform.ready().then(() => {
+      
+
+
+
+
+
+                    this.diagnostic.requestRuntimePermission(this.diagnostic.permission.CAMERA).then((state) => {
+                        switch(status){
+                            case this.diagnostic.permissionStatus.GRANTED:
+                                this.oAlerta.show1("Permission granted to use the camera");
+                                break;
+                            case this.diagnostic.permissionStatus.NOT_REQUESTED:
+                                this.oAlerta.show1("Permission to use the camera has not been requested yet");
+                                break;
+                            case this.diagnostic.permissionStatus.DENIED:
+                                this.oAlerta.show1("Permission denied to use the camera - ask again?");
+                                break;
+                            case this.diagnostic.permissionStatus.DENIED_ALWAYS:
+                                this.oAlerta.show1("Permission permanently denied to use the camera - guess we won't be using it then!");
+                                break;
+                        }
+                    }, (err) => {
+                        console.error("The following error occurred: "+err);
+                    });
+
+
+
+       
+     });
   }
 
   ionViewWillEnter() {
