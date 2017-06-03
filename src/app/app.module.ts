@@ -22,7 +22,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from "@angular/http";
 
-import { Push } from '@ionic-native/push';
+//import { Push } from '@ionic-native/push';
 
 @NgModule({
   declarations: [
@@ -63,7 +63,7 @@ import { Push } from '@ionic-native/push';
   providers: [
     StatusBar,
     SplashScreen,
-    Push,
+    //Push,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
