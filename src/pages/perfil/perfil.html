@@ -1,0 +1,61 @@
+<!--
+  Generated template for the Perfil page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header class="header">
+
+  <ion-navbar>
+    <ion-title>
+    	<h1 class="profile">Mi Perfil</h1>
+    </ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding="false" style="background: url(assets/imgs/MzC4faYeQr2AnaRD3qbY_fondo.jpg) no-repeat center;background-size:cover;" class="manual-ios-statusbar-padding" class="contenido">
+
+<ion-grid class="perfil">
+	<ion-col col-6 offset-3 class="avatar" (click)="openMenu();">
+		<!--img src="assets/x/3.jpg" height="150" width="150" /-->
+		 <img src="assets/imgs/img-perfil.jpg" *ngIf="imagen_vacia_1" height="150" width="150" />
+     	 <img [src]="imagen_1" *ngIf="imagen_1" width="150" height="150"/>
+	</ion-col>
+	<div class="informacion">
+	<ion-row class="name">
+		<ion-col>
+			<h2>{{_full_name}}</h2>
+		</ion-col>
+	</ion-row>
+	<ion-row class="level">
+		<ion-col col-4>
+			<img src="assets/imgs/{{_puntos}}.png" alt="">
+			<p></p>
+		</ion-col>
+		<ion-col col>
+			<h1>{{_nivel}}</h1>
+			<h2>{{_puntos}}</h2>
+			<span>{{_proximo_nivel}}</span>
+		</ion-col>
+	</ion-row>
+	<ion-row class="data">
+		<ion-col>
+			<ul>
+				<li><p>Cédula: {{_cedula}}</p></li>
+				<li><p>E-mail: {{_corro}}</p></li>
+				<li><p>Usuario: {{_user}}</p></li>
+				<li><p>Password: ********</p></li>
+			</ul>
+		</ion-col>
+	</ion-row>
+		
+	</div>
+</ion-grid>
+<div padding>
+	<button class="btn btn-login" (click)="goToCambiarCredenciales();">Cambiar Contraseña</button>
+	<br>
+	<button class="btn btn-login" (click)="setCerrarSesion();">Cerrar Sesión</button>
+</div>
+</ion-content>
