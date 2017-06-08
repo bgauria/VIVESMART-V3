@@ -25,21 +25,19 @@ export class Detallenoticiapromocion {
     this.np= navParams.get('data');
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad Detallenoticiapromocion');
-  }
+  
     goBack() {
-       this.navCtrl.pop();
+        this.navCtrl.pop();
     }
-
-     addFavorito(){
+    //Hacer el like
+    addFavorito(){
         if(this.np.bandera_like == 'light'){
             this.createLike(1, this.np);
         }else{
             this.createLike(0, this.np);
         }
     }
-
+    //Realiza el registro o actualización del like de la noticia o promoción
      createLike( _key_like, np ){
        
                if(this.oCS.isOnline()) {
@@ -82,21 +80,19 @@ export class Detallenoticiapromocion {
         }
                      
     }
-
+  //Comparte la noticia o promoción por redes sociales
   compartir(){
      this.socialSharing.share(
        this.np.not_titulo,
        this.np.not_descripcion,
         '',
         this.np.img
-        ).then((data) => {
-        //alert(JSON.stringify(data));
+    ).then((data) => {
         this.createMisiones(2);
-      }).catch(() => {
-        // Error!
-      });
+      }).catch(() => { });
 
   }
+  //Escanea el código qr
   setScanear(){
         this.barcodeScanner.scan().then((barcodeData) => {
             if(barcodeData.text == this.np.not_id){
@@ -108,15 +104,7 @@ export class Detallenoticiapromocion {
             this.oT.showLongToast('Error');
         });
     }
-  _compartir(){
-     this.createMisiones(2);
-
-  }
-  _setScanear(){
-    this.createMisiones(1);
-       
-  }
-
+  //Realiza el registro en la base de datos
   createMisiones(op){
        if(this.oCS.isOnline()) {
             let _key='';
@@ -176,14 +164,10 @@ export class Detallenoticiapromocion {
         }
                      
     }
-
+    //Muestra el modal una vez que se haya compartido o escaneado
     showModalPremio(tipo, nivel, puntosproximonivel, acum){
         let modal = this.modalCtrl.create(Alertaganar, {
             tipo: tipo,
-            //nivel: nivel ,
-            //puntosproximonivel: puntosproximonivel ,
-            //puntosacum: acum 
-
         });
         modal.present();    
     }

@@ -25,23 +25,24 @@ export class LogrosPage {
 
                  
   }
-  
+  //Verifica si existe información almacenada
+  //Si no existe hace la consulta a la base
   ionViewWillEnter() {
       if(typeof this._lista_logros === 'undefined' || this._lista_logros.length == 0){ 
         this.getCargar();
       }else{
-           this.storage.get('vs_LogrosPage_Recargar').then((val) => {
-                if(val == '1'){
-                    this.storage.remove('vs_LogrosPage_Recargar');
-                    this.getCargar();
-                }
-             });
+        this.storage.get('vs_LogrosPage_Recargar').then((val) => {
+            if(val == '1'){
+                this.storage.remove('vs_LogrosPage_Recargar');
+                this.getCargar();
+            }
+        });
       }
     
 
   }
 
-
+//Consulta la información de los logros a la base
    getCargar(){
        if(this.oCS.isOnline()) {
                 this.ifReintentar= false;
@@ -77,6 +78,7 @@ export class LogrosPage {
     getRecargar(){
       this.getRecargar();
     }
+    //Abre el modal, que detalla la información de la insignia
     goToVerDetalleLogro(l){
         let modal = this.modalCtrl.create(Alertaganar, {
             tipo: '3',

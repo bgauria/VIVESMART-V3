@@ -49,9 +49,9 @@ export class LoginPage {
                 this.oEntity.get(data, this.oUrl.url_usuario, 0).finally(() => { 
                     this.oLoad.dismissLoading(); 
                 }).subscribe(data => {
-                     //console.log('--> ' + JSON.stringify(data));
                     if(data.success == 1){
                         this.storage.ready().then(() => {
+                            //Almacena la información de la sesión
                            this.storage.set('vs_user', JSON.stringify(
                                                                             {
                                                                                 usu_id: data.usuario[0].usu_id,
@@ -103,11 +103,12 @@ export class LoginPage {
   
         } 
     }
-     goToRegistro(){
+ //Abre la pantalla para el registro
+  goToRegistro(){
       this.navCtrl.push(RegistroPage,  { });
   }
 
-
+ //Para recuperar la Contraseña
       showRecordarPass() {  
         let confirm = this.alertCtrl.create({
             title: 'Recuperar contraseña',

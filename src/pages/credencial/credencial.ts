@@ -16,7 +16,6 @@ import {ConnectivityService} from '../../providers/connectivity-service';
 })
 export class CredencialPage {
   private su;
-  //private user;
   public _txtUsuario= '';
   public _txtClave= '';
   public _txtConfirmar= '';
@@ -27,60 +26,61 @@ export class CredencialPage {
                 }
 
   ionViewWillEnter() {
-        this.storage.get('vs_usuario').then((val) => { 
-            this._txtUsuario= val; 
-         
-        });
-        
-    }
-    enviar(){
-        if(this.oCS.isOnline()) {
-            let bandera = true;
-            if(this._txtConfirmar =='' || this._txtClave=='' || this._txtUsuario=='' ){
-                this.oAlerta.show1('Faltan campos por llenar!');
-                bandera= false;	
-            }else{
-                if(this._txtClave == this._txtConfirmar){
-                    bandera= true;
-                }else{
-                    this.oAlerta.show1('La contraseña no coincide con la confirmación!');
-                    bandera= false;
-                }
-            }
-            if (bandera){
-                this.storage.ready().then(() => {
-                    this.storage.get('vs_user').then((val) => { 
-                        this.su = JSON.parse(val);
-                        var data = JSON.stringify({
-                                                    KEY: 'KEY_USUARIO_UPDATE_USER_PASS',
-                                                    _id_user: this.su.usu_id,
-                                                    _usuario:  this._txtUsuario,
-                                                    _password: this._txtClave
-                                            
-                                                });
+    //Obtener el user almacenado localmente
+    this.storage.get('vs_usuario').then((val) => { 
+        this._txtUsuario= val;   
+    });       
+  }
+  //Procedimiento para actualizar el usuario y contraseña
+  enviar(){
 
-                        this.oLoad.showLoading();
-                        this.oEntity.get(data, this.oUrl.url_usuario, 0).finally(() => { 
-                            this.oLoad.dismissLoading(); 
-                        }).subscribe(data => {
-                            if(data.success == 1){
-                                
-                                    this.storage.remove('vs_usuario');
-                                    this.storage.set('vs_usuario',this._txtUsuario);
-                                
-                                this.oAlerta.show1(data.msg);
-                            
-                            } else {
-                                this.oAlerta.show1(data.msg);
-                            } 
-                        }, error => {
-                            this.oAlerta.showVolverIntentar();
-                        });
-                    });
-                });
+    if(this.oCS.isOnline()) {
+        let bandera = true;
+        if(this._txtConfirmar =='' || this._txtClave=='' || this._txtUsuario=='' ){
+            this.oAlerta.show1('Faltan campos por llenar!');
+            bandera= false;	
+        }else{
+            if(this._txtClave == this._txtConfirmar){
+                bandera= true;
+            }else{
+                this.oAlerta.show1('La contraseña no coincide con la confirmación!');
+                bandera= false;
             }
         }
+        if (bandera){
+            this.storage.ready().then(() => {
+                this.storage.get('vs_user').then((val) => { 
+                    this.su = JSON.parse(val);
+                    var data = JSON.stringify({
+                                                KEY: 'KEY_USUARIO_UPDATE_USER_PASS',
+                                                _id_user: this.su.usu_id,
+                                                _usuario:  this._txtUsuario,
+                                                _password: this._txtClave
+                                        
+                                            });
+
+                    this.oLoad.showLoading();
+                    this.oEntity.get(data, this.oUrl.url_usuario, 0).finally(() => { 
+                        this.oLoad.dismissLoading(); 
+                    }).subscribe(data => {
+                        if(data.success == 1){
+                            
+                                this.storage.remove('vs_usuario');
+                                this.storage.set('vs_usuario',this._txtUsuario);
+                            
+                            this.oAlerta.show1(data.msg);
+                        
+                        } else {
+                            this.oAlerta.show1(data.msg);
+                        } 
+                    }, error => {
+                        this.oAlerta.showVolverIntentar();
+                    });
+                });
+            });
+        }
     }
+   }
 
 
 }

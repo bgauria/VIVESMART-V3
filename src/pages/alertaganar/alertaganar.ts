@@ -18,14 +18,14 @@ export class Alertaganar {
   
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController) {
-    this.tipo = navParams.get('tipo'); // si es 1 gano insignia, caso contrario compartio
-
+    this.tipo = navParams.get('tipo'); 
+    //Cuando se escanea un código qr
     if(this.tipo == '1'){
       this._titulo= '¡Ganaste una Insignia!';
-
+    //Cuando se comparte información
     }else if(this.tipo == '2'){
       this._titulo= '¡Ganaste Puntos!';
-      
+    //cuando se le da click a una insignia 
     }else{
       this._titulo= navParams.get('_nombre');
       this.ifBandera= false;
@@ -37,12 +37,8 @@ export class Alertaganar {
     }
 
   }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad Alertaganar');
-  }
-
+//Para cerrar el modal
  dismiss() {
-        this.viewCtrl.dismiss();
-    }
+    this.viewCtrl.dismiss();
+ }
 }

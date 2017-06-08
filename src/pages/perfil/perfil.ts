@@ -45,38 +45,30 @@ export class PerfilPage {
              private diagnostic: Diagnostic) {
     
      platform.ready().then(() => {
-      
-
-
-
-
-
-                    this.diagnostic.requestRuntimePermission(this.diagnostic.permission.CAMERA).then((state) => {
-                        switch(status){
-                            case this.diagnostic.permissionStatus.GRANTED:
-                                this.oAlerta.show1("Permission granted to use the camera");
-                                break;
-                            case this.diagnostic.permissionStatus.NOT_REQUESTED:
-                                this.oAlerta.show1("Permission to use the camera has not been requested yet");
-                                break;
-                            case this.diagnostic.permissionStatus.DENIED:
-                                this.oAlerta.show1("Permission denied to use the camera - ask again?");
-                                break;
-                            case this.diagnostic.permissionStatus.DENIED_ALWAYS:
-                                this.oAlerta.show1("Permission permanently denied to use the camera - guess we won't be using it then!");
-                                break;
-                        }
-                    }, (err) => {
-                        console.error("The following error occurred: "+err);
-                    });
-
-
-
-       
+      //Solicita permisos para abrir la camara
+        this.diagnostic.requestRuntimePermission(this.diagnostic.permission.CAMERA).then((state) => {
+            switch(status){
+                case this.diagnostic.permissionStatus.GRANTED:
+                    this.oAlerta.show1("Permission granted to use the camera");
+                    break;
+                case this.diagnostic.permissionStatus.NOT_REQUESTED:
+                    this.oAlerta.show1("Permission to use the camera has not been requested yet");
+                    break;
+                case this.diagnostic.permissionStatus.DENIED:
+                    this.oAlerta.show1("Permission denied to use the camera - ask again?");
+                    break;
+                case this.diagnostic.permissionStatus.DENIED_ALWAYS:
+                    this.oAlerta.show1("Permission permanently denied to use the camera - guess we won't be using it then!");
+                    break;
+            }
+        }, (err) => {
+            console.error("The following error occurred: "+err);
+        });
      });
   }
 
   ionViewWillEnter() {
+    //Consulta en la base local los datos del usuario
      this.storage.ready().then(() => {
         this.storage.get('vs_user').then((val) => {
             this.su = JSON.parse(val);
@@ -87,6 +79,7 @@ export class PerfilPage {
             this._id_user= this.su.usu_id;
                      
         });
+        //Consulta la url de la foto de perfil
         this.storage.get('vs_foto').then((val) => {
           if(typeof val !== 'undefined' && val !== null && val !== ''){
             this.imagen_vacia_1 = false;
@@ -94,6 +87,7 @@ export class PerfilPage {
           }
            
         });
+        //Consulta todo lo relacionado a puntuación
          this.storage.get('vs_user_puntos_acumulados').then((val) => {
           let d = JSON.parse(val);
           if(typeof val !== 'undefined' && val !== null && typeof d.usu_puntos_acumulados !== 'undefined'){

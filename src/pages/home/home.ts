@@ -33,12 +33,16 @@ export class HomePage {
    constructor( public navCtrl: NavController, public navParams: NavParams, private platform: Platform, private oUrl: Url, private oCS: ConnectivityService
                ,public storage: Storage, public oEntity: Entity,private oAlerta: Alerta, private oLoad: Load, private oF: Fecha , public oT: Toast) {
                   this.ifReintentar= true;
+                  //1 - Noticia
+                  //2 - Promoción
                   this._key_enrutador= navParams.data;
                  
   }
 
   ionViewWillEnter() {
-    
+    //Verifica que exista información almacenada localmente sobre noticias y promociones
+    //Valida que solo este almacenada durante un día
+    //Si no existe información o si el tiempo superó un día, hace la consulta a la base
       if(typeof this._lista_noticias_promocion === 'undefined' || this._lista_noticias_promocion.length == 0){ 
             this.storage.get(this.getEtiquedaDataLocal()).then((val) => {
                 if(val === null){
@@ -63,7 +67,8 @@ export class HomePage {
         }
   }
 
-
+//Carga la información de las noticias o promociones
+//Primer parametro es el id de la noticia o promoción, puede ser el id del primer item de la lista como el ultimo
    getCargar(id, sp, eve){
        try{ 
             if(this.oCS.isOnline()) {
@@ -146,6 +151,7 @@ export class HomePage {
                                                 }
                                             ));
     }
+    //valida si es noticia o promoción, retorna la etiqueta del almacenamiento local
     getEtiquedaDataLocal(){
         let etiqueta='';
         if(this._key_enrutador == '1'){
@@ -155,6 +161,7 @@ export class HomePage {
         }
         return etiqueta;
     }
+    //En case que no haya internet
     getRecargar(){
       this.getCargar('', '1', null);
     }
@@ -209,15 +216,17 @@ export class HomePage {
                      
     }
 
-
+//Para abrir la pantalla del detalle de la noticia o promoción
   goToVerMas(_np){
       this.navCtrl.push(Detallenoticiapromocion,  {data: _np});
   }
 
+//Cuando se hace tira de la lista
     doRefresh(refresher){
         let b = this._lista_noticias_promocion[0];
         this.getCargar(b.not_id, '3', refresher);
     } 
+//Cuando se le da click al botón más
     setcargarMas(){
         let b = this._lista_noticias_promocion[this._lista_noticias_promocion.length-1];
         this.getCargar(b.not_id, '2', null);
